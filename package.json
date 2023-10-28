@@ -1,7 +1,7 @@
 {
-    "name": "backend_server",
+    "name": "pizzeria-api",
     "version": "1.0.0",
-    "description": "Server for ID-IDEAS E-commerce",
+    "description": "Server Pizzeria E-commerce",
     "main": "src/app.js",
     "scripts": {
         "lint": "eslint src",
@@ -25,7 +25,7 @@
     "license": "ISC",
     "repository": {
         "type": "git",
-        "url": "https://github.com/TatiCor/pizzeriaProject/tree/feat/clean_architecture/server.git"
+        "url": "https://github.com/Juudini/pizzeria-api.git"
     },
     "devDependencies": {
         "@types/cors": "^2.8.14",
