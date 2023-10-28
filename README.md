@@ -3,8 +3,6 @@
 #### This project is a Pizzeria application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
 <br>
 
-
-
 <details open> 
   <summary><h2>🧩 Languages & Tools</h2></summary>
     
@@ -13,6 +11,7 @@
     <img src="https://skillicons.dev/icons?i=typescript,nodejs,express,mongodb,jest,postman&perline=9" />
   </a>
 </p>
+</details>
 
 ## Features
 
