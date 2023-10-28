@@ -1,0 +1,125 @@
+{
+    "name": "backend_server",
+    "version": "1.0.0",
+    "description": "Server for ID-IDEAS E-commerce",
+    "main": "src/app.js",
+    "scripts": {
+        "lint": "eslint src",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "dev": "ts-node-dev --respawn src/app.ts",
+        "build": "eslint src && rimraf ../build && tsc",
+        "start": "npm run build && node build/app"
+    },
+    "keywords": [
+        "pizzeria",
+        "restaurant",
+        "food",
+        "menu",
+        "online ordering",
+        "e-commerce",
+        "web application"
+    ],
+    "author": "Juan Debandi",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/TatiCor/pizzeriaProject/tree/feat/clean_architecture/server.git"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.14",
+        "@types/dotenv": "^8.2.0",
+        "@types/express": "^4.17.18",
+        "@types/jest": "^29.5.6",
+        "@types/morgan": "^1.9.6",
+        "@types/node": "18.18.0",
+        "@types/swagger-jsdoc": "^6.0.1",
+        "@types/swagger-ui-express": "4.1.4",
+        "@typescript-eslint/eslint-plugin": "^6.8.0",
+        "@typescript-eslint/parser": "^6.8.0",
+        "eslint": "^8.52.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-optimize-regex": "^1.2.1",
+        "eslint-plugin-prettier": "^5.0.1",
+        "eslint-plugin-security": "^1.7.1",
+        "eslint-plugin-unicorn": "^48.0.1",
+        "jest": "^29.7.0",
+        "prettier": "^3.0.3",
+        "rimraf": "^5.0.5",
+        "supertest": "^6.3.3",
+        "ts-jest": "^29.1.1",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.2.2"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "env-var": "^7.4.1",
+        "express": "^4.18.2",
+        "mongoose": "^7.6.0",
+        "morgan": "^1.10.0",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.0",
+        "winston": "^3.11.0"
+    },
+    "eslintConfig": {
+        "parser": "@typescript-eslint/parser",
+        "extends": [
+            "eslint:recommended",
+            "plugin:@typescript-eslint/recommended",
+            "plugin:prettier/recommended",
+            "plugin:unicorn/recommended",
+            "plugin:security/recommended",
+            "plugin:optimize-regex/recommended"
+        ],
+        "plugins": [
+            "prettier",
+            "@typescript-eslint",
+            "unicorn",
+            "security",
+            "optimize-regex"
+        ],
+        "rules": {
+            "unicorn/empty-brace-spaces": "error",
+            "unicorn/no-new-array": "error",
+            "unicorn/no-array-reduce": "error",
+            "unicorn/no-array-callback-reference": "error",
+            "unicorn/prefer-spread": "error",
+            "unicorn/no-instanceof-array": "error",
+            "unicorn/no-new-buffer": "error",
+            "unicorn/no-for-loop": "error",
+            "unicorn/consistent-destructuring": "error",
+            "unicorn/consistent-function-scoping": "error",
+            "unicorn/prefer-module": "off",
+            "unicorn/no-await-expression-member": "error",
+            "unicorn/no-static-only-class": "off",
+            "unicorn/prevent-abbreviations": "off",
+            "unicorn/import-style": "off",
+            "security/detect-object-injection": "warn",
+            "optimize-regex/optimize-regex": "warn",
+            "@typescript-eslint/no-explicit-any": "off",
+            "unicorn/filename-case": "off"
+        }
+    },
+    "prettier": {
+        "endOfLine": "crlf",
+        "printWidth": 120,
+        "tabWidth": 4,
+        "singleQuote": false,
+        "trailingComma": "none",
+        "semi": true,
+        "quoteProps": "as-needed",
+        "arrowParens": "avoid",
+        "bracketSpacing": true,
+        "bracketSameLine": true,
+        "overrides": [
+            {
+                "files": "*.ts",
+                "options": {
+                    "parser": "typescript"
+                }
+            }
+        ]
+    }
+}
