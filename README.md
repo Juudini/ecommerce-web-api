@@ -1,20 +1,18 @@
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=800&size=52&duration=2500&pause=600&color=1AF7F5&center=true&vCenter=true&repeat=false&random=false&width=1800&lines=PIZZERIA+API++with+Clean+Architecture+DDD+and+Clean+Code)](https://git.io/typing-svg)
 
-# Pizzeria Project with Clean Architecture, DDD, and Clean Code
+#### This project is a Pizzeria application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
+<br>
 
-## Overview
 
-This project is a Pizzeria application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
 
-<p align="center">    
-    <span style="font-weight: bold;">Back-End</span>
-    <br>
-    <a href="https://www.linkedin.com/in/juandebandi/"><img alt="LinkedIn" title="LinkedIn" src="https://custom-icon-badges.demolab.com/badge/-LinkedIn-231b2e?style=for-the-badge&logoColor=F8D866&logo=LinkedIn"/></a>
-    <a href="https://juandebandi.dev/"><img alt="Portfolio" title="Portfolio" src="https://custom-icon-badges.demolab.com/badge/-|Portfolio-1F222E?style=for-the-badge&logoColor=F8D866&logo=link-external"/></a>
-    <a href="mailto:juudinidev@gmail.com">
-        <img src="https://custom-icon-badges.demolab.com/badge/-Email-231b2e?style=for-the-badge&logoColor=F8D866&logo=gmail" alt="Email">
-    </a>
+<details open> 
+  <summary><h2>🧩 Languages & Tools</h2></summary>
+    
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=typescript,nodejs,express,mongodb,jest,postman&perline=9" />
+  </a>
 </p>
-
 
 ## Features
 
@@ -40,7 +38,7 @@ Follow the steps below to set up and run the application in your local environme
 1. Clone this repository to your local machine:
 
 ```
-git clone -b refactor/clean_architecture https://github.com/Juudini/pizzeria-api.git
+git clone https://github.com/Juudini/pizzeria-api.git
 ```
 
 2. Navigate to the project directory:
@@ -72,3 +70,9 @@ http://localhost:3000/api/docs
 
 This will take you to the API documentation, where you can explore the endpoints and learn how to interact with the application.
 
+## 🔗 Links
+<a href="https://www.linkedin.com/in/juandebandi/"><img alt="LinkedIn" title="LinkedIn" src="https://custom-icon-badges.demolab.com/badge/-LinkedIn-231b2e?style=for-the-badge&logoColor=F8D866&logo=LinkedIn"/></a>
+<a href="https://juandebandi.dev/"><img alt="Portfolio" title="Portfolio" src="https://custom-icon-badges.demolab.com/badge/-|Portfolio-1F222E?style=for-the-badge&logoColor=F8D866&logo=link-external"/></a>
+<a href="mailto:juudinidev@gmail.com">
+   <img src="https://custom-icon-badges.demolab.com/badge/-Email-231b2e?style=for-the-badge&logoColor=F8D866&logo=gmail" alt="Email">
+</a>
