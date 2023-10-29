@@ -38,7 +38,6 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-optimize-regex": "^1.2.1",
         "eslint-plugin-prettier": "^5.0.1",
-        "eslint-plugin-security": "^1.7.1",
         "eslint-plugin-unicorn": "^48.0.1",
         "prettier": "^3.0.3",
         "rimraf": "^5.0.5",
@@ -63,7 +62,6 @@
             "plugin:@typescript-eslint/recommended",
             "plugin:prettier/recommended",
             "plugin:unicorn/recommended",
-            "plugin:security/recommended",
             "plugin:optimize-regex/recommended"
         ],
         "plugins": [
@@ -89,7 +87,8 @@
             "unicorn/no-static-only-class": "off",
             "unicorn/prevent-abbreviations": "off",
             "unicorn/import-style": "off",
-            "security/detect-object-injection": "warn",
+            "unicorn/no-null": "off",
+            "unicorn/prefer-number-properties": "off",
             "optimize-regex/optimize-regex": "warn",
             "@typescript-eslint/no-explicit-any": "off",
             "unicorn/filename-case": "off"
