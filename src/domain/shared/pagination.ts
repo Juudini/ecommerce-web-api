@@ -12,14 +12,14 @@ interface ExecutePaginationProps {
 export const executePagination = async ({ page, limit, sort, productUrl, docs, products }: ExecutePaginationProps) => {
     const baseUrl: string = `/api/v1/${productUrl}?limit=${limit}&sort=${sort}`;
 
-    let hasPrevPage: boolean = page > 1;
-    let hasNextPage: boolean = page < docs;
+    const hasPrevPage: boolean = page > 1;
+    const hasNextPage: boolean = page < docs;
 
-    let prevPage: number | null = hasPrevPage ? page - 1 : null;
-    let nextPage: number | null = hasNextPage ? page + 1 : null;
+    const prevPage: number | null = hasPrevPage ? page - 1 : null;
+    const nextPage: number | null = hasNextPage ? page + 1 : null;
     const status: number | string = products.length === 0 ? "error" : "success";
-    let prevLink: string | null = hasPrevPage ? `${baseUrl}&page=${prevPage}` : null;
-    let nextLink: string | null = hasNextPage ? `${baseUrl}&page=${nextPage}` : null;
+    const prevLink: string | null = hasPrevPage ? `${baseUrl}&page=${prevPage}` : null;
+    const nextLink: string | null = hasNextPage ? `${baseUrl}&page=${nextPage}` : null;
 
     const totalPages: number = Math.ceil(docs / limit);
 
