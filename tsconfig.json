@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "es2020",
-        "module": "CommonJS",
-        "outDir": "../build/src",
+        "target": "es2021",
+        "module": "commonjs",
+        "outDir": "./build/src",
         "rootDir": "./src",
         "resolveJsonModule": true,
         "esModuleInterop": true,
