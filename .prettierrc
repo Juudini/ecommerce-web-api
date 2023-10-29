@@ -1,0 +1,13 @@
+{
+    "endOfLine": "crlf",
+    "printWidth": 120,
+    "tabWidth": 4,
+    "singleQuote": false,
+    "trailingComma": "none",
+    "semi": true,
+    "quoteProps": "as-needed",
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "bracketSameLine": true,
+    "overrides": [{ "files": "*.ts", "options": { "parser": "typescript" } }]
+}
