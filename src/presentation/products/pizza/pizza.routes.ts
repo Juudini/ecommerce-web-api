@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PizzaDatasourceImpl, PizzaRepositoryImpl } from "../../../../infrastructure";
+import { PizzaDatasourceImpl, PizzaRepositoryImpl } from "../../../infrastructure";
 import { PizzaController } from "./pizza.controller";
 
 export class PizzaRoutes {

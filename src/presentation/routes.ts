@@ -5,10 +5,10 @@ export class AppRoutes {
     static get routes(): Router {
         const router = Router();
 
-        router.use("/api/v1/pizzas", PizzaRoutes.routes);
-        router.use("/api/v1/beverages", BeverageRoutes.routes);
-        router.use("/api/v1/desserts", DessertRoutes.routes);
-        router.use("/api/v1/empanadas", EmpanadaRoutes.routes);
+        router.use("/api/pizzas", PizzaRoutes.routes);
+        router.use("/api/beverages", BeverageRoutes.routes);
+        router.use("/api/desserts", DessertRoutes.routes);
+        router.use("/api/empanadas", EmpanadaRoutes.routes);
 
         return router;
     }

@@ -8,7 +8,7 @@ import {
     DessertUseCase,
     PaginationProps,
     PaginationDto
-} from "../../../../domain";
+} from "../../../domain";
 
 export class DessertController {
     constructor(private readonly dessertRepository: DessertRepository) {}

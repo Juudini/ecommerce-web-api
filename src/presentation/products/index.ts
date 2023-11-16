@@ -1,1 +1,4 @@
-export * from "./v1/index";
+export * from "./pizza/index";
+export * from "./beverage/index";
+export * from "./dessert/index";
+export * from "./empanada/index";

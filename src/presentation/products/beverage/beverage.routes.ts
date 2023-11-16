@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { BeverageDatasourceImpl, BeverageRepositoryImpl } from "../../../../infrastructure";
+import { BeverageDatasourceImpl, BeverageRepositoryImpl } from "../../../infrastructure";
 import { BeverageController } from "./beverage.controller";
 
 export class BeverageRoutes {

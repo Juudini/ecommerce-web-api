@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { EmpanadaDatasourceImpl, EmpanadaRepositoryImpl } from "../../../../infrastructure";
+import { EmpanadaDatasourceImpl, EmpanadaRepositoryImpl } from "../../../infrastructure";
 import { EmpanadaController } from "./empanada.controller";
 
 export class EmpanadaRoutes {

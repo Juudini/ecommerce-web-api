@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import {
     CustomError,
-    EmpanadaDto,
-    EmpanadaRepository,
-    EmpanadaPartialDto,
+    BeverageDto,
+    BeverageRepository,
+    BeveragePartialDto,
     ProductIdDto,
-    EmpanadaUseCase,
-    PaginationDto,
-    PaginationProps
-} from "../../../../domain";
+    BeverageUseCase,
+    PaginationProps,
+    PaginationDto
+} from "../../../domain";
 
-export class EmpanadaController {
-    constructor(private readonly empanadaRepository: EmpanadaRepository) {}
+export class BeverageController {
+    constructor(private readonly beverageRepository: BeverageRepository) {}
     private handleError = (error: unknown, res: Response) => {
         if (error instanceof CustomError) {
             return res.status(error.statusCode).json({ error: error.message });
@@ -19,69 +19,69 @@ export class EmpanadaController {
         return res.status(500).json({ error: "Internal Server Error" });
     };
 
-    createEmpanada = (req: Request, res: Response) => {
-        const [error, empanadaDto] = EmpanadaDto.create(req.body);
+    createBeverage = (req: Request, res: Response) => {
+        const [error, beverageDto] = BeverageDto.create(req.body);
         if (error) return res.status(400).json({ error });
 
-        new EmpanadaUseCase(this.empanadaRepository)
-            .create(empanadaDto!)
+        new BeverageUseCase(this.beverageRepository)
+            .create(beverageDto!)
             .then(data => res.json(data))
             .catch(error => this.handleError(error, res));
     };
 
-    getEmpanadas = (req: Request, res: Response) => {
+    getBeverages = (req: Request, res: Response) => {
         const { page, limit, sort } = req.query;
         const [error, paginationDto] = PaginationDto.create({ page, limit, sort } as unknown as PaginationProps);
         if (error) return res.status(400).json({ error });
 
-        new EmpanadaUseCase(this.empanadaRepository)
+        new BeverageUseCase(this.beverageRepository)
             .getAll(paginationDto!)
             .then(data => res.json(data))
             .catch(error => this.handleError(error, res));
     };
 
-    getEmpanadaById = (req: Request, res: Response) => {
-        const [error, productIdDto] = ProductIdDto.create(req.params.empid);
+    getBeverageById = (req: Request, res: Response) => {
+        const [error, productIdDto] = ProductIdDto.create(req.params.bvgid);
         if (error) return res.status(400).json({ error });
 
-        new EmpanadaUseCase(this.empanadaRepository)
+        new BeverageUseCase(this.beverageRepository)
             .getById(productIdDto!)
             .then(data => res.json(data))
             .catch(error => this.handleError(error, res));
     };
 
-    deleteEmpanadaById = (req: Request, res: Response) => {
-        const [error, productIdDto] = ProductIdDto.create(req.params.empid);
+    deleteBeverageById = (req: Request, res: Response) => {
+        const [error, productIdDto] = ProductIdDto.create(req.params.bvgid);
         if (error) return res.status(400).json({ error });
 
-        new EmpanadaUseCase(this.empanadaRepository)
+        new BeverageUseCase(this.beverageRepository)
             .deleteById(productIdDto!)
             .then(data => res.json(data))
             .catch(error => this.handleError(error, res));
     };
 
-    updateEmpanadaById = (req: Request, res: Response) => {
-        const [errorId, productIdDto] = ProductIdDto.create(req.params.empid);
-        const [errorDto, empanadaDto] = EmpanadaDto.create(req.body);
+    updateBeverageById = (req: Request, res: Response) => {
+        const [errorId, productIdDto] = ProductIdDto.create(req.params.bvgid);
+        const [errorDto, beverageDto] = BeverageDto.create(req.body);
 
         if (errorId) return res.status(400).json({ errorId });
         if (errorDto) return res.status(400).json({ errorDto });
 
-        new EmpanadaUseCase(this.empanadaRepository)
-            .updateById(productIdDto!, empanadaDto!)
+        new BeverageUseCase(this.beverageRepository)
+            .updateById(productIdDto!, beverageDto!)
             .then(data => res.json(data))
             .catch(error => this.handleError(error, res));
     };
 
-    partialUpdateEmpanadaById = (req: Request, res: Response) => {
-        const [errorId, productIdDto] = ProductIdDto.create(req.params.empid);
-        const [errorDto, empanadaPartialDto] = EmpanadaPartialDto.create(req.body);
+    partialUpdateBeverageById = (req: Request, res: Response) => {
+        const [errorId, productIdDto] = ProductIdDto.create(req.params.bvgid);
+        const [errorDto, beveragePartialDto] = BeveragePartialDto.create(req.body);
 
         if (errorId) return res.status(400).json({ errorId });
         if (errorDto) return res.status(400).json({ errorDto });
 
-        new EmpanadaUseCase(this.empanadaRepository)
-            .partialUpdateById(productIdDto!, empanadaPartialDto!)
+        new BeverageUseCase(this.beverageRepository)
+            .partialUpdateById(productIdDto!, beveragePartialDto!)
             .then(data => res.json(data))
             .catch(error => this.handleError(error, res));
     };
