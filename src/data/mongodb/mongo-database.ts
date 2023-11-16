@@ -12,9 +12,9 @@ export class MongoDatabase {
             await connect(mongoUrl, { dbName: dbName });
             logger.info("🔌 DB connected");
             return true;
-        } catch (error) {
-            logger.error("Error in MongoDB connect. Details: ", error);
-            throw error;
+        } catch (err) {
+            logger.error("Error in MongoDB connect. Details: ", err);
+            throw err;
         }
     }
 }

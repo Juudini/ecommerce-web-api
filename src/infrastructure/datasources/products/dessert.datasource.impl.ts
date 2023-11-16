@@ -37,11 +37,11 @@ export class DessertDatasourceImpl implements DessertDatasource {
             await dessert.save();
 
             return DessertMapper.DessertEntityFromObject(dessert);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the dessert. Details:", error);
+            logger.error("Error while searching for the dessert. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -69,11 +69,11 @@ export class DessertDatasourceImpl implements DessertDatasource {
             });
 
             return paginationResults as unknown as DessertEntity[];
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for all desserts. Details:", error);
+            logger.error("Error while searching for all desserts. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -88,11 +88,11 @@ export class DessertDatasourceImpl implements DessertDatasource {
             }
 
             return DessertMapper.DessertEntityFromObject(existsDessert);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the dessert by ID. Details:", error);
+            logger.error("Error while searching for the dessert by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -105,11 +105,11 @@ export class DessertDatasourceImpl implements DessertDatasource {
                 throw CustomError.notFound(`Dessert with ID: ${id} not found`);
             }
             return DessertMapper.DessertEntityFromObject(deleted);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while deleting dessert by ID. Details:", error);
+            logger.error("Error while deleting dessert by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -123,11 +123,11 @@ export class DessertDatasourceImpl implements DessertDatasource {
             }
 
             return DessertMapper.DessertEntityFromObject(existsDessert);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while updating dessert by ID. Details:", error);
+            logger.error("Error while updating dessert by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -144,11 +144,11 @@ export class DessertDatasourceImpl implements DessertDatasource {
             }
 
             return DessertMapper.DessertEntityFromObject(existsDessert);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while partial updating dessert by ID. Details:", error);
+            logger.error("Error while partial updating dessert by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };

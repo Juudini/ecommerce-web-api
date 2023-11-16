@@ -12,9 +12,9 @@ import {
 
 export class EmpanadaController {
     constructor(private readonly empanadaRepository: EmpanadaRepository) {}
-    private handleError = (error: unknown, res: Response) => {
-        if (error instanceof CustomError) {
-            return res.status(error.statusCode).json({ error: error.message });
+    private handleError = (err: unknown, res: Response) => {
+        if (err instanceof CustomError) {
+            return res.status(err.statusCode).json({ error: err.message });
         }
         return res.status(500).json({ error: "Internal Server Error" });
     };
@@ -26,7 +26,7 @@ export class EmpanadaController {
         new EmpanadaUseCase(this.empanadaRepository)
             .create(empanadaDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     getEmpanadas = (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ export class EmpanadaController {
         new EmpanadaUseCase(this.empanadaRepository)
             .getAll(paginationDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     getEmpanadaById = (req: Request, res: Response) => {
@@ -47,7 +47,7 @@ export class EmpanadaController {
         new EmpanadaUseCase(this.empanadaRepository)
             .getById(productIdDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     deleteEmpanadaById = (req: Request, res: Response) => {
@@ -57,7 +57,7 @@ export class EmpanadaController {
         new EmpanadaUseCase(this.empanadaRepository)
             .deleteById(productIdDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     updateEmpanadaById = (req: Request, res: Response) => {
@@ -70,7 +70,7 @@ export class EmpanadaController {
         new EmpanadaUseCase(this.empanadaRepository)
             .updateById(productIdDto!, empanadaDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     partialUpdateEmpanadaById = (req: Request, res: Response) => {
@@ -83,6 +83,6 @@ export class EmpanadaController {
         new EmpanadaUseCase(this.empanadaRepository)
             .partialUpdateById(productIdDto!, empanadaPartialDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 }

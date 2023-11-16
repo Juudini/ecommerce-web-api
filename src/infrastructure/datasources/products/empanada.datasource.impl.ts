@@ -36,11 +36,11 @@ export class EmpanadaDatasourceImpl implements EmpanadaDatasource {
             await empanada.save();
 
             return EmpanadaMapper.EmpanadaEntityFromObject(empanada);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the empanada. Details:", error);
+            logger.error("Error while searching for the empanada. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -68,11 +68,11 @@ export class EmpanadaDatasourceImpl implements EmpanadaDatasource {
             });
 
             return paginationResults as unknown as EmpanadaEntity[];
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for all empanadas. Details:", error);
+            logger.error("Error while searching for all empanadas. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -87,11 +87,11 @@ export class EmpanadaDatasourceImpl implements EmpanadaDatasource {
             }
 
             return EmpanadaMapper.EmpanadaEntityFromObject(existsEmpanada);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the empanada by ID. Details:", error);
+            logger.error("Error while searching for the empanada by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -104,11 +104,11 @@ export class EmpanadaDatasourceImpl implements EmpanadaDatasource {
                 throw CustomError.notFound(`Empanada with ID: ${id} not found`);
             }
             return EmpanadaMapper.EmpanadaEntityFromObject(deleted);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while deleting empanada by ID. Details:", error);
+            logger.error("Error while deleting empanada by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -122,11 +122,11 @@ export class EmpanadaDatasourceImpl implements EmpanadaDatasource {
             }
 
             return EmpanadaMapper.EmpanadaEntityFromObject(existsEmpanada);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while updating empanada by ID. Details:", error);
+            logger.error("Error while updating empanada by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -143,11 +143,11 @@ export class EmpanadaDatasourceImpl implements EmpanadaDatasource {
             }
 
             return EmpanadaMapper.EmpanadaEntityFromObject(existsEmpanada);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while partial updating empanada by ID. Details:", error);
+            logger.error("Error while partial updating empanada by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };

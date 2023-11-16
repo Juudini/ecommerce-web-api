@@ -12,9 +12,9 @@ import {
 
 export class DessertController {
     constructor(private readonly dessertRepository: DessertRepository) {}
-    private handleError = (error: unknown, res: Response) => {
-        if (error instanceof CustomError) {
-            return res.status(error.statusCode).json({ error: error.message });
+    private handleError = (err: unknown, res: Response) => {
+        if (err instanceof CustomError) {
+            return res.status(err.statusCode).json({ error: err.message });
         }
         return res.status(500).json({ error: "Internal Server Error" });
     };
@@ -26,7 +26,7 @@ export class DessertController {
         new DessertUseCase(this.dessertRepository)
             .create(dessertDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     getDesserts = (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ export class DessertController {
         new DessertUseCase(this.dessertRepository)
             .getAll(paginationDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     getDessertById = (req: Request, res: Response) => {
@@ -47,7 +47,7 @@ export class DessertController {
         new DessertUseCase(this.dessertRepository)
             .getById(productIdDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     deleteDessertById = (req: Request, res: Response) => {
@@ -57,7 +57,7 @@ export class DessertController {
         new DessertUseCase(this.dessertRepository)
             .deleteById(productIdDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     updateDessertById = (req: Request, res: Response) => {
@@ -70,7 +70,7 @@ export class DessertController {
         new DessertUseCase(this.dessertRepository)
             .updateById(productIdDto!, dessertDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     partialUpdateDessertById = (req: Request, res: Response) => {
@@ -83,6 +83,6 @@ export class DessertController {
         new DessertUseCase(this.dessertRepository)
             .partialUpdateById(productIdDto!, dessertPartialDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 }

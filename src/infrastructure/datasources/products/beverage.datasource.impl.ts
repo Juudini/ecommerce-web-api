@@ -37,11 +37,11 @@ export class BeverageDatasourceImpl implements BeverageDatasource {
             await beverage.save();
 
             return BeverageMapper.BeverageEntityFromObject(beverage);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the beverage. Details:", error);
+            logger.error("Error while searching for the beverage. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -69,11 +69,11 @@ export class BeverageDatasourceImpl implements BeverageDatasource {
             });
 
             return paginationResults as unknown as BeverageEntity[];
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for all beverages. Details:", error);
+            logger.error("Error while searching for all beverages. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -88,11 +88,11 @@ export class BeverageDatasourceImpl implements BeverageDatasource {
             }
 
             return BeverageMapper.BeverageEntityFromObject(existsBeverage);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the beverage by ID. Details:", error);
+            logger.error("Error while searching for the beverage by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -105,11 +105,11 @@ export class BeverageDatasourceImpl implements BeverageDatasource {
                 throw CustomError.notFound(`Beverage with ID: ${id} not found`);
             }
             return BeverageMapper.BeverageEntityFromObject(deleted);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while deleting beverage by ID. Details:", error);
+            logger.error("Error while deleting beverage by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -123,11 +123,11 @@ export class BeverageDatasourceImpl implements BeverageDatasource {
             }
 
             return BeverageMapper.BeverageEntityFromObject(existsBeverage);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while updating beverage by ID. Details:", error);
+            logger.error("Error while updating beverage by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -144,11 +144,11 @@ export class BeverageDatasourceImpl implements BeverageDatasource {
             }
 
             return BeverageMapper.BeverageEntityFromObject(existsBeverage);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while partial updating beverage by ID. Details:", error);
+            logger.error("Error while partial updating beverage by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };

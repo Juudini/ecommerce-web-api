@@ -12,9 +12,9 @@ import {
 
 export class PizzaController {
     constructor(private readonly pizzaRepository: PizzaRepository) {}
-    private handleError = (error: unknown, res: Response) => {
-        if (error instanceof CustomError) {
-            return res.status(error.statusCode).json({ error: error.message });
+    private handleError = (err: unknown, res: Response) => {
+        if (err instanceof CustomError) {
+            return res.status(err.statusCode).json({ error: err.message });
         }
         return res.status(500).json({ error: "Internal Server Error" });
     };
@@ -26,7 +26,7 @@ export class PizzaController {
         new PizzaUseCase(this.pizzaRepository)
             .create(pizzaDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     getPizzas = (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ export class PizzaController {
         new PizzaUseCase(this.pizzaRepository)
             .getAll(paginationDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     getPizzaById = (req: Request, res: Response) => {
@@ -47,7 +47,7 @@ export class PizzaController {
         new PizzaUseCase(this.pizzaRepository)
             .getById(productIdDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     deletePizzaById = (req: Request, res: Response) => {
@@ -57,7 +57,7 @@ export class PizzaController {
         new PizzaUseCase(this.pizzaRepository)
             .deleteById(productIdDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     updatePizzaById = (req: Request, res: Response) => {
@@ -70,7 +70,7 @@ export class PizzaController {
         new PizzaUseCase(this.pizzaRepository)
             .updateById(productIdDto!, pizzaDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 
     partialUpdatePizzaById = (req: Request, res: Response) => {
@@ -83,6 +83,6 @@ export class PizzaController {
         new PizzaUseCase(this.pizzaRepository)
             .partialUpdateById(productIdDto!, pizzaPartialDto!)
             .then(data => res.json(data))
-            .catch(error => this.handleError(error, res));
+            .catch(err => this.handleError(err, res));
     };
 }

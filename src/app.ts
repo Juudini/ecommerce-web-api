@@ -14,7 +14,7 @@ async function main() {
             dbName: envs.DB_NAME
         });
         new Server({ port: envs.PORT, routes: AppRoutes.routes }).start();
-    } catch (error) {
-        logger.error(error);
+    } catch (err) {
+        logger.error(err);
     }
 }

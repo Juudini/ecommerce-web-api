@@ -37,11 +37,11 @@ export class PizzaDatasourceImpl implements PizzaDatasource {
             await pizza.save();
 
             return PizzaMapper.PizzaEntityFromObject(pizza);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the pizza. Details:", error);
+            logger.error("Error while searching for the pizza. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -69,11 +69,11 @@ export class PizzaDatasourceImpl implements PizzaDatasource {
             });
 
             return paginationResults as unknown as PizzaEntity[];
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for all pizzas. Details:", error);
+            logger.error("Error while searching for all pizzas. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -88,11 +88,11 @@ export class PizzaDatasourceImpl implements PizzaDatasource {
             }
 
             return PizzaMapper.PizzaEntityFromObject(existsPizza);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while searching for the pizza by ID. Details:", error);
+            logger.error("Error while searching for the pizza by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -105,11 +105,11 @@ export class PizzaDatasourceImpl implements PizzaDatasource {
                 throw CustomError.notFound(`Pizza with ID: ${id} not found`);
             }
             return PizzaMapper.PizzaEntityFromObject(deleted);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while deleting pizza by ID. Details:", error);
+            logger.error("Error while deleting pizza by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -123,11 +123,11 @@ export class PizzaDatasourceImpl implements PizzaDatasource {
             }
 
             return PizzaMapper.PizzaEntityFromObject(existsPizza);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while updating pizza by ID. Details:", error);
+            logger.error("Error while updating pizza by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
@@ -141,11 +141,11 @@ export class PizzaDatasourceImpl implements PizzaDatasource {
             }
 
             return PizzaMapper.PizzaEntityFromObject(existsPizza);
-        } catch (error) {
-            if (error instanceof CustomError) {
-                throw error;
+        } catch (err) {
+            if (err instanceof CustomError) {
+                throw err;
             }
-            logger.error("Error while partial updating pizza by ID. Details:", error);
+            logger.error("Error while partial updating pizza by ID. Details:", err);
             throw CustomError.internalServer();
         }
     };
