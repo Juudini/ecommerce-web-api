@@ -43,7 +43,7 @@
  *         schema:
  *           type: integer
  *         description: The page number
- *       - name: sort
+ *       - name: sort "asc" or "desc"
  *         in: query
  *         schema:
  *           type: string
