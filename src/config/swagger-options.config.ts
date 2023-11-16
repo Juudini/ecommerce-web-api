@@ -8,7 +8,7 @@ export const swaggerOptions = {
             version: "1.0.0",
             description: "A simple express library API"
         },
-        servers: [{ url: "http://localhost:3000/api/v1" }]
+        servers: [{ url: "http://localhost:3000/api/products" }]
     },
-    apis: [`${rootDirOverSrc}docs/v1/*ts`]
+    apis: [`${rootDirOverSrc}docs/products/*ts`]
 };
