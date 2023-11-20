@@ -4,6 +4,7 @@
     "description": "Server Pizzeria E-commerce",
     "main": "src/app.js",
     "scripts": {
+        "test": "jest --detectOpenHandles",
         "lint": "eslint src",
         "dev": "ts-node-dev --respawn src/app.ts",
         "build": "rimraf ./build && tsc",
