@@ -12,7 +12,7 @@ interface Options {
     routes: Router;
 }
 
-export default class Server {
+export class Server {
     public readonly app = Express();
     private readonly port: number;
     private readonly routes: Router;
