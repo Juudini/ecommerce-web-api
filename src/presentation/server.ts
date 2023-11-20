@@ -37,7 +37,7 @@ export class Server {
         this.app.use(this.routes);
 
         this.app.use("/api/docs", SwaggerUi.serve, SwaggerUi.setup(swaggerSpecs));
-        logger.info("📚 Swagger documentation is available at: http://localhost:3000/api/docs");
+        logger.info(`📚 Swagger documentation is available at: http://localhost:${this.port}/api/docs`);
 
         /* ★━━━━━━━━━━━★ Listener ★━━━━━━━━━━━★ */
         this.app.listen(this.port, () => {
