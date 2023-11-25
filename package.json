@@ -6,9 +6,9 @@
     "scripts": {
         "test": "jest --detectOpenHandles",
         "lint": "eslint src",
-        "dev": "ts-node-dev --respawn src/app.ts",
+        "dev": "ts-node-dev --respawn --env-file .env.dev src/app.ts",
         "build": "rimraf ./build && tsc",
-        "start": "node build/src/app.js"
+        "start": "node --env-file .env build/src/app.js"
     },
     "keywords": [
         "pizzeria",
@@ -26,87 +26,38 @@
         "url": "https://github.com/Juudini/pizzeria-api.git"
     },
     "devDependencies": {
-        "@types/cors": "^2.8.14",
-        "@types/dotenv": "^8.2.0",
-        "@types/express": "^4.17.18",
-        "@types/jest": "^29.5.8",
-        "@types/morgan": "^1.9.6",
-        "@types/node": "^20.8.9",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^4.17.21",
+        "@types/jest": "^29.5.10",
+        "@types/morgan": "^1.9.9",
+        "@types/node": "^20.10.0",
         "@types/supertest": "^2.0.16",
-        "@types/swagger-jsdoc": "^6.0.1",
-        "@types/swagger-ui-express": "4.1.4",
-        "@typescript-eslint/eslint-plugin": "^6.8.0",
-        "@typescript-eslint/parser": "^6.8.0",
-        "eslint": "^8.53.0",
+        "@types/swagger-jsdoc": "^6.0.4",
+        "@types/swagger-ui-express": "4.1.6",
+        "@typescript-eslint/eslint-plugin": "^6.12.0",
+        "@typescript-eslint/parser": "^6.12.0",
+        "eslint": "^8.54.0",
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-jest": "^27.6.0",
         "eslint-plugin-prettier": "^5.0.1",
         "eslint-plugin-unicorn": "^48.0.1",
         "jest": "^29.7.0",
-        "prettier": "^3.0.3",
+        "prettier": "^3.1.0",
         "rimraf": "^5.0.5",
         "supertest": "^6.3.3",
         "ts-jest": "^29.1.1",
         "ts-node-dev": "^2.0.0",
-        "typescript": "^5.2.2",
+        "typescript": "^5.3.2",
         "unicorn": "^0.0.1"
     },
     "dependencies": {
         "cors": "^2.8.5",
-        "dotenv": "^16.3.1",
         "env-var": "^7.4.1",
         "express": "^4.18.2",
-        "mongoose": "^7.6.0",
+        "mongoose": "^7.6.5",
         "morgan": "^1.10.0",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.0",
         "winston": "^3.11.0"
-    },
-    "eslintConfig": {
-        "parser": "@typescript-eslint/parser",
-        "extends": [
-            "eslint:recommended",
-            "plugin:@typescript-eslint/recommended",
-            "plugin:prettier/recommended",
-            "plugin:unicorn/recommended",
-            "plugin:jest/recommended"
-        ],
-        "plugins": [
-            "prettier",
-            "@typescript-eslint",
-            "unicorn",
-            "jest"
-        ],
-        "rules": {
-            "unicorn/empty-brace-spaces": "error",
-            "unicorn/no-new-array": "error",
-            "unicorn/no-array-reduce": "error",
-            "unicorn/no-array-callback-reference": "error",
-            "unicorn/prefer-spread": "error",
-            "unicorn/no-instanceof-array": "error",
-            "unicorn/no-new-buffer": "error",
-            "unicorn/no-for-loop": "error",
-            "unicorn/consistent-destructuring": "error",
-            "unicorn/consistent-function-scoping": "error",
-            "unicorn/prefer-module": "off",
-            "unicorn/no-await-expression-member": "error",
-            "unicorn/no-static-only-class": "off",
-            "unicorn/prevent-abbreviations": "off",
-            "unicorn/import-style": "off",
-            "unicorn/numeric-separators-style": "off",
-            "unicorn/no-null": "off",
-            "unicorn/prefer-number-properties": "off",
-            "unicorn/better-regex": "off",
-            "unicorn/filename-case": "off",
-            "unicorn/prefer-top-level-await": "off",
-            "unicorn/catch-error-name": [
-                "error",
-                {
-                    "name": "err"
-                }
-            ],
-            "@typescript-eslint/no-explicit-any": "off",
-            "jest/prefer-expect-assertions": "off"
-        }
     }
 }
