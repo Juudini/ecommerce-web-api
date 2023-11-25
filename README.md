@@ -58,7 +58,7 @@ npm i
 npm run dev
 ```
 
-Make sure you have the `.env` file in the root folder.
+Make sure you have the `.env.dev` file in the root folder.
 
 
 # To access the documentation, open your web browser and enter the following URL:
