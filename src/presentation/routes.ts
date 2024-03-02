@@ -1,14 +1,13 @@
 import { Router } from "express";
-import { PizzaRoutes, BeverageRoutes, DessertRoutes, EmpanadaRoutes } from "./products";
+import { ProductRoutes } from "./product";
+import { CategoryRoutes } from "./category";
 
 export class AppRoutes {
     static get routes(): Router {
         const router = Router();
 
-        router.use("/api/products/pizzas", PizzaRoutes.routes);
-        router.use("/api/products/beverages", BeverageRoutes.routes);
-        router.use("/api/products/desserts", DessertRoutes.routes);
-        router.use("/api/products/empanadas", EmpanadaRoutes.routes);
+        router.use("/api/products", ProductRoutes.routes);
+        router.use("/api/categories", CategoryRoutes.routes);
 
         return router;
     }

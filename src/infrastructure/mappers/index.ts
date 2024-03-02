@@ -1,1 +1,2 @@
-export * from "./products/index";
+export * from "./category.mapper";
+export * from "./product.mapper";

@@ -1,12 +1,12 @@
 {
     "name": "pizzeria-api",
-    "version": "1.0.0",
+    "version": "1.5.0",
     "description": "Server Pizzeria E-commerce",
     "main": "src/app.js",
     "scripts": {
         "test": "jest --detectOpenHandles",
         "lint": "eslint src",
-        "dev": "ts-node-dev --respawn --env-file .env.dev src/app.ts",
+        "dev": "ts-node-dev --respawn --env-file .env src/app.ts",
         "build": "rimraf ./build && tsc",
         "start": "node --env-file .env build/src/app.js"
     },
@@ -34,6 +34,7 @@
         "@types/supertest": "^2.0.16",
         "@types/swagger-jsdoc": "^6.0.4",
         "@types/swagger-ui-express": "4.1.6",
+        "@types/uuid": "^9.0.8",
         "@typescript-eslint/eslint-plugin": "^6.12.0",
         "@typescript-eslint/parser": "^6.12.0",
         "eslint": "^8.54.0",
@@ -43,6 +44,7 @@
         "eslint-plugin-unicorn": "^48.0.1",
         "jest": "^29.7.0",
         "prettier": "^3.1.0",
+        "prisma": "^5.10.2",
         "rimraf": "^5.0.5",
         "supertest": "^6.3.3",
         "ts-jest": "^29.1.1",
@@ -51,6 +53,7 @@
         "unicorn": "^0.0.1"
     },
     "dependencies": {
+        "@prisma/client": "5.10.2",
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "env-var": "^7.4.1",
@@ -59,6 +62,8 @@
         "morgan": "^1.10.0",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.0",
-        "winston": "^3.11.0"
+        "uuid": "^9.0.1",
+        "winston": "^3.11.0",
+        "zod": "^3.22.4"
     }
 }
