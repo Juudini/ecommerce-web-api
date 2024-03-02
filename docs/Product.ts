@@ -2,7 +2,7 @@
  * @swagger
  * components:
  *   schemas:
- *     Pizza:
+ *     Product:
  *       type: object
  *       properties:
  *         name:
@@ -28,22 +28,22 @@
 /**
  * @swagger
  * tags:
- *   - name: Pizzas
- *     description: Operations about pizzas
+ *   - name: Products
+ *     description: Operations about products
  */
 //~> |Get
 /**
  * @swagger
- * /pizzas:
+ * /products:
  *   get:
- *     summary: Get a list of available pizzas
- *     tags: [Pizzas]
+ *     summary: Get a list of available products
+ *     tags: [Products]
  *     parameters:
  *       - name: limit
  *         in: query
  *         schema:
  *           type: integer
- *         description: The number of pizzas to return per page
+ *         description: The number of products to return per page
  *       - name: page
  *         in: query
  *         schema:
@@ -53,20 +53,20 @@
  *         in: query
  *         schema:
  *           type: string
- *         description: Sort order for the pizzas
+ *         description: Sort order for the products
  *     responses:
  *       200:
- *         description: List of pizzas retrieved successfully
+ *         description: List of products retrieved successfully
  *       500:
  *         description: Internal server error
  */
 //~> |Get
 /**
  * @swagger
- * /pizzas/{pid}:
+ * /products/{pid}:
  *   get:
  *     summary: Retrieve a single pizza by ID
- *     tags: [Pizzas]
+ *     tags: [Products]
  *     parameters:
  *       - name: pid
  *         in: path
@@ -76,36 +76,36 @@
  *           type: string
  *     responses:
  *       200:
- *         description: Pizza retrieved successfully
+ *         description: Product retrieved successfully
  *       404:
- *         description: Pizza not found
+ *         description: Product not found
  */
 //~> |Post
 /**
  * @swagger
- * /pizzas:
+ * /products:
  *   post:
  *     summary: Add a new pizza
- *     tags: [Pizzas]
+ *     tags: [Products]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Pizza'
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       201:
- *         description: Pizza added successfully
+ *         description: Product added successfully
  *       400:
  *         description: Bad request
  */
 //~> |Put
 /**
  * @swagger
- * /pizzas/{pid}:
+ * /products/{pid}:
  *   put:
  *     summary: Update a pizza by ID
- *     tags: [Pizzas]
+ *     tags: [Products]
  *     parameters:
  *       - name: pid
  *         in: path
@@ -118,20 +118,20 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Pizza'
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       204:
- *         description: Pizza updated successfully
+ *         description: Product updated successfully
  *       404:
- *         description: Pizza not found
+ *         description: Product not found
  */
 //~> |Patch
 /**
  * @swagger
- * /pizzas/{pid}:
+ * /products/{pid}:
  *   patch:
  *     summary: Update a pizza partially by ID
- *     tags: [Pizzas]
+ *     tags: [Products]
  *     parameters:
  *       - name: pid
  *         in: path
@@ -144,22 +144,22 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Pizza'
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       204:
- *         description: Pizza updated partially successfully
+ *         description: Product updated partially successfully
  *       404:
- *         description: Pizza not found
+ *         description: Product not found
  *       400:
  *         description: Bad request
  */
 //~> |Delete
 /**
  * @swagger
- * /pizzas/{pid}:
+ * /products/{pid}:
  *   delete:
  *     summary: Delete a pizza by ID
- *     tags: [Pizzas]
+ *     tags: [Products]
  *     parameters:
  *       - name: pid
  *         in: path
@@ -169,7 +169,7 @@
  *           type: string
  *     responses:
  *       204:
- *         description: Pizza deleted successfully
+ *         description: Product deleted successfully
  *       404:
- *         description: Pizza not found
+ *         description: Product not found
  */

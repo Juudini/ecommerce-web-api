@@ -29,7 +29,7 @@ export class CategoryController {
             .catch(err => this.handleError(err, res));
     };
 
-    getCategorys = (req: Request, res: Response) => {
+    getCategories = (req: Request, res: Response) => {
         const { page, limit, sort } = req.query;
         const [error, paginationDto] = PaginationDto.create({ page, limit, sort } as unknown as PaginationProps);
         if (error) return res.status(400).json({ error });
@@ -41,7 +41,7 @@ export class CategoryController {
     };
 
     getCategoryById = (req: Request, res: Response) => {
-        const [error, productIdDto] = GeneralIdDto.create(req.params.empid);
+        const [error, productIdDto] = GeneralIdDto.create(req.params.ctyid);
         if (error) return res.status(400).json({ error });
 
         new CategoryUseCase(this.categoryRepository)
@@ -51,7 +51,7 @@ export class CategoryController {
     };
 
     deleteCategoryById = (req: Request, res: Response) => {
-        const [error, productIdDto] = GeneralIdDto.create(req.params.empid);
+        const [error, productIdDto] = GeneralIdDto.create(req.params.ctyid);
         if (error) return res.status(400).json({ error });
 
         new CategoryUseCase(this.categoryRepository)
@@ -61,7 +61,7 @@ export class CategoryController {
     };
 
     updateCategoryById = (req: Request, res: Response) => {
-        const [errorId, productIdDto] = GeneralIdDto.create(req.params.empid);
+        const [errorId, productIdDto] = GeneralIdDto.create(req.params.ctyid);
         const [errorDto, categoryDto] = CategoryDto.create(req.body);
 
         if (errorId) return res.status(400).json({ errorId });
@@ -74,7 +74,7 @@ export class CategoryController {
     };
 
     partialUpdateCategoryById = (req: Request, res: Response) => {
-        const [errorId, productIdDto] = GeneralIdDto.create(req.params.empid);
+        const [errorId, productIdDto] = GeneralIdDto.create(req.params.ctyid);
         const [errorDto, categoryPartialDto] = CategoryPartialDto.create(req.body);
 
         if (errorId) return res.status(400).json({ errorId });

@@ -2,48 +2,42 @@
  * @swagger
  * components:
  *   schemas:
- *     Beverage:
+ *     Category:
  *       type: object
  *       properties:
  *         name:
  *           type: string
- *           description: Name of the beverage
  *         description:
  *           type: string
- *           description: Description of the beverage
  *         price:
  *           type: number
- *           description: Price of the beverage
- *         category:
- *           type: string
- *           description: Category of beverage
  *         thumbnail:
  *           type: array
  *           items:
  *             type: string
  *           default: [""]
- *           description: Array of thumbnail URLs (["www.image1.com", "www.image2.com"])
+ *           description: Array of thumbnail URLs (["www.imagen1.com", "www.imagen2.com"])
  */
 //~> |
 /**
  * @swagger
  * tags:
- *   name: Beverages
- *   description: Operations related to beverages
+ *   - name: Categories
+ *     description: Operations related to categories
  */
-//~> |
+//~> |Get
 /**
  * @swagger
- * /beverages:
+ * /categories:
  *   get:
- *     summary: Get a list of available beverages
- *     tags: [Beverages]
+ *     summary: Get a list of available categories
+ *     tags: [Categories]
  *     parameters:
  *       - name: limit
  *         in: query
  *         schema:
  *           type: integer
- *         description: The number of beverages to return per page
+ *         description: The number of categories to return per page
  *       - name: page
  *         in: query
  *         schema:
@@ -53,64 +47,64 @@
  *         in: query
  *         schema:
  *           type: string
- *         description: Sort order for the beverages
+ *         description: Sort order for the categories
  *     responses:
  *       200:
- *         description: List of beverages retrieved successfully
+ *         description: List of categories retrieved successfully
  *       500:
  *         description: Internal server error
- */
-//~> |Post
-/**
- * @swagger
- * /beverages:
- *   post:
- *     summary: Add a new beverage
- *     tags: [Beverages]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Beverage'
- *     responses:
- *       201:
- *         description: Beverage added successfully
- *       400:
- *         description: Bad request
  */
 //~> |Get
 /**
  * @swagger
- * /beverages/{bvgid}:
+ * /categories/{empid}:
  *   get:
- *     summary: Get a beverage by ID
- *     tags: [Beverages]
+ *     summary: Get an empanada by ID
+ *     tags: [Categories]
  *     parameters:
- *       - name: bvgid
+ *       - name: empid
  *         in: path
  *         required: true
- *         description: ID of the beverage to get
+ *         description: ID of the empanada to get
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: Beverage retrieved successfully
+ *         description: Category retrieved successfully
  *       404:
- *         description: Beverage not found
+ *         description: Category not found
+ */
+//~> |Post
+/**
+ * @swagger
+ * /categories:
+ *   post:
+ *     summary: Add a new empanada
+ *     tags: [Categories]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Category'
+ *     responses:
+ *       201:
+ *         description: Category added successfully
+ *       400:
+ *         description: Bad request
  */
 //~> |Put
 /**
  * @swagger
- * /beverages/{bvgid}:
+ * /categories/{empid}:
  *   put:
- *     summary: Update a beverage by ID
- *     tags: [Beverages]
+ *     summary: Update an empanada by ID
+ *     tags: [Categories]
  *     parameters:
- *       - name: bvgid
+ *       - name: empid
  *         in: path
  *         required: true
- *         description: ID of the beverage to update
+ *         description: ID of the empanada to update
  *         schema:
  *           type: string
  *     requestBody:
@@ -118,24 +112,24 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Beverage'
+ *             $ref: '#/components/schemas/Category'
  *     responses:
- *       204:
- *         description: Beverage updated successfully
+ *       200:
+ *         description: Category updated successfully
  *       404:
- *         description: Beverage not found
+ *         description: Category not found
  *       400:
  *         description: Bad request
  */
 //~> |Patch
 /**
  * @swagger
- * /beverages/{bvgid}:
+ * /categories/{empid}:
  *   patch:
  *     summary: Update a beverage partially by ID
- *     tags: [Beverages]
+ *     tags: [Categories]
  *     parameters:
- *       - name: bvgid
+ *       - name: empid
  *         in: path
  *         required: true
  *         description: ID of the beverage to update
@@ -158,20 +152,20 @@
 //~> |Delete
 /**
  * @swagger
- * /beverages/{bvgid}:
+ * /categories/{empid}:
  *   delete:
- *     summary: Delete a beverage by ID
- *     tags: [Beverages]
+ *     summary: Delete an empanada by ID
+ *     tags: [Categories]
  *     parameters:
- *       - name: bvgid
+ *       - name: empid
  *         in: path
  *         required: true
- *         description: ID of the beverage to delete
+ *         description: ID of the empanada to delete
  *         schema:
  *           type: string
  *     responses:
  *       204:
- *         description: Beverage deleted successfully
+ *         description: Category deleted successfully
  *       404:
- *         description: Beverage not found
+ *         description: Category not found
  */

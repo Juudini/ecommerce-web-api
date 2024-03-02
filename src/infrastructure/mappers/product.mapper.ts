@@ -2,9 +2,9 @@ import { CustomError, ProductEntity } from "../../domain";
 
 export class ProductMapper {
     static ProductEntityFromObject = (object: { [key: string]: any }) => {
-        const { id, _id, title, description, price, type, thumbnail, status } = object;
+        const { id, title, description, price, type, thumbnail, status } = object;
 
-        if (!_id || !id) {
+        if (!id) {
             throw CustomError.badRequest("Missing id");
         }
         if (!title) {
@@ -26,6 +26,6 @@ export class ProductMapper {
             throw CustomError.badRequest("Missing status");
         }
 
-        return new ProductEntity(id || _id, title, description, price, type, thumbnail, status);
+        return new ProductEntity(id, title, description, price, type, thumbnail, status);
     };
 }

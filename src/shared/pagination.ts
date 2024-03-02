@@ -9,8 +9,8 @@ interface ExecutePaginationProps {
     products: any;
 }
 
-export const executePagination = async ({ page, limit, sort, productUrl, docs, products }: ExecutePaginationProps) => {
-    const baseUrl: string = `/api/v1/${productUrl}?limit=${limit}&sort=${sort}`;
+export const executePagination = ({ page, limit, sort, productUrl, docs, products }: ExecutePaginationProps) => {
+    const baseUrl: string = `/api/${productUrl}?limit=${limit}&sort=${sort}`;
 
     const hasPrevPage: boolean = page > 1;
     const hasNextPage: boolean = page < docs;
@@ -36,6 +36,12 @@ export const executePagination = async ({ page, limit, sort, productUrl, docs, p
         prevLink,
         nextLink
     };
+
+    if (page >= totalPages) {
+        results.hasNextPage = false;
+        results.nextPage = null;
+        results.nextLink = null;
+    }
 
     return results;
 };

@@ -1,10 +1,10 @@
 import { CategoryProps, ProductImageProps } from "../../types";
-
+//Todo: hacerVALIDACIONES CON ZOD
 export class ProductDto {
     private constructor(
         public title: string,
         public description: string,
-        public price: string,
+        public price: string | number,
         public inStock: number,
         public id?: string,
         public product_image?: ProductImageProps[],
@@ -23,6 +23,8 @@ export class ProductDto {
         if (!price) return ["Missing price"];
         else if (typeof price !== "string") return ["Invalid price"];
 
-        return [undefined, new ProductDto(title, description, price, inStock, id, product_image, categories)];
+        const priceFloat = parseFloat(price.replace(",", "."));
+
+        return [undefined, new ProductDto(title, description, priceFloat, inStock, id, product_image, categories)];
     };
 }

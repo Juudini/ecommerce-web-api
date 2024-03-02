@@ -1,5 +1,6 @@
 import { logger } from "../../config";
-//! CAMBIAR MONGO POR PRISMA
+import prisma from "../../libs/prisma";
+
 import {
     CategoryDatasource,
     CustomError,
@@ -8,27 +9,47 @@ import {
     CategoryEntity,
     CategoryPartialDto,
     PaginationDto,
-    validateSort,
     executePagination
 } from "../../domain";
 import { CategoryMapper } from "../mappers";
-const categoryModel: any = ["s"];
+import { ProductProps } from "@/domain/types";
+
+export interface CategoryProps {
+    id: string;
+    title: string;
+    product?: ProductProps[];
+}
+
+interface PaginationResultsProps {
+    status: string;
+    payload: CategoryProps[];
+    page: number;
+    docs: number;
+    totalPages: number;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+    prevPage: number | null;
+    nextPage: number | null;
+    prevLink: string | null;
+    nextLink: string | null;
+}
+
 export class CategoryDatasourceImpl implements CategoryDatasource {
-    create = async (productDto: CategoryDto): Promise<CategoryEntity> => {
-        const { title, products } = productDto;
+    create = async (categoryDto: CategoryDto): Promise<CategoryEntity> => {
+        const { title } = categoryDto;
         try {
-            const exists = await categoryModel.findOne({
-                title,
-                products
+            const exists = await prisma.category.findUnique({
+                where: { title }
             });
 
             if (exists) throw CustomError.badRequest("Category with the same properties already exists.");
 
-            const product = await categoryModel.create({
-                title
+            const product = await prisma.category.create({
+                data: {
+                    title
+                },
+                select: { id: true, title: true, products: true }
             });
-
-            await product.save();
 
             return CategoryMapper.CategoryEntityFromObject(product);
         } catch (err) {
@@ -43,23 +64,23 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
     getAll = async (paginationDto: PaginationDto): Promise<CategoryEntity[]> => {
         const { page, limit, sort } = paginationDto;
         try {
-            const sortOptionsResults = validateSort(sort);
+            const docs: number = await prisma.category.count();
 
-            const products = await categoryModel
-                .find()
-                .skip((page - 1) * limit)
-                .limit(limit)
-                .sort(sortOptionsResults);
+            const skipValue = (page - 1) * limit;
 
-            const docs: number = await categoryModel.countDocuments();
+            const categories = await prisma.category.findMany({
+                take: limit,
+                skip: skipValue,
+                orderBy: { title: sort }
+            });
 
-            const paginationResults = executePagination({
+            const paginationResults: PaginationResultsProps = executePagination({
                 page,
                 limit,
                 sort,
-                productUrl: "products",
+                productUrl: "categories",
                 docs,
-                products
+                products: categories
             });
 
             return paginationResults as unknown as CategoryEntity[];
@@ -67,15 +88,22 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
             if (err instanceof CustomError) {
                 throw err;
             }
-            logger.error("Error while searching for all products. Details:", err);
+            logger.error("Error while searching for all categories. Details:", err);
             throw CustomError.internalServer();
         }
     };
 
-    getById = async (productIdDto: GeneralIdDto): Promise<CategoryEntity> => {
-        const { id } = productIdDto;
+    getById = async (generalIdDto: GeneralIdDto): Promise<CategoryEntity> => {
+        const { id } = generalIdDto;
         try {
-            const existsCategory = await categoryModel.findById(id);
+            const existsCategory = await prisma.category.findUnique({
+                where: { id },
+                select: {
+                    id: true,
+                    products: true,
+                    title: true
+                }
+            });
 
             if (!existsCategory) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
@@ -91,10 +119,10 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
         }
     };
 
-    deleteById = async (productIdDto: GeneralIdDto): Promise<CategoryEntity> => {
-        const { id } = productIdDto;
+    deleteById = async (generalIdDto: GeneralIdDto): Promise<CategoryEntity> => {
+        const { id } = generalIdDto;
         try {
-            const deleted = await categoryModel.findByIdAndDelete(id);
+            const deleted = await prisma.category.delete({ where: { id } });
             if (!deleted) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
             }
@@ -108,10 +136,16 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
         }
     };
 
-    updateById = async (productIdDto: GeneralIdDto, productDto: CategoryDto): Promise<CategoryEntity> => {
-        const { id } = productIdDto;
+    updateById = async (generalIdDto: GeneralIdDto, categoryDto: CategoryDto): Promise<CategoryEntity> => {
+        const { id } = generalIdDto;
         try {
-            const existsCategory = await categoryModel.findOneAndUpdate({ _id: id }, productDto, { new: true });
+            const existsCategory = await prisma.category.update({
+                where: { id },
+                data: categoryDto as any, //Todo fixear luego
+                select: { id: true, products: true, title: true }
+            });
+            categoryDto;
+
             if (!existsCategory) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
             }
@@ -127,12 +161,16 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
     };
 
     partialUpdateById = async (
-        productIdDto: GeneralIdDto,
-        productPartialDto: CategoryPartialDto
+        generalIdDto: GeneralIdDto,
+        categoryPartialDto: CategoryPartialDto
     ): Promise<CategoryEntity> => {
-        const { id } = productIdDto;
+        const { id } = generalIdDto;
         try {
-            const existsCategory = await categoryModel.findOneAndUpdate({ _id: id }, productPartialDto, { new: true });
+            const existsCategory = await prisma.category.update({
+                where: { id },
+                data: categoryPartialDto,
+                select: { id: true, products: true, title: true }
+            });
             if (!existsCategory) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
             }

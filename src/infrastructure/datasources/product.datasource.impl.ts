@@ -1,5 +1,5 @@
+import { CategoryProps, ProductImageProps } from "@/domain/types";
 import { logger } from "../../config";
-//! CAMBIAR MONGO POR PRISMA
 import {
     ProductDatasource,
     CustomError,
@@ -7,34 +7,66 @@ import {
     GeneralIdDto,
     ProductEntity,
     ProductPartialDto,
-    PaginationDto,
-    validateSort
+    PaginationDto
 } from "../../domain";
 import { executePagination } from "../../domain";
 import { ProductMapper } from "../mappers";
-const productModel: any = [""];
+import prisma from "../../libs/prisma";
+export interface ProductProps {
+    title: string;
+    description: string;
+    price: string;
+    inStock: number;
+    id?: string;
+    product_image?: ProductImageProps[];
+    categories?: CategoryProps[];
+}
+
+interface PaginationResultsProps {
+    status: string;
+    payload: ProductProps[];
+    page: number;
+    docs: number;
+    totalPages: number;
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+    prevPage: number | null;
+    nextPage: number | null;
+    prevLink: string | null;
+    nextLink: string | null;
+}
+
 export class ProductDatasourceImpl implements ProductDatasource {
     create = async (productDto: ProductDto): Promise<ProductEntity> => {
         const { title, description, price, inStock, product_image, categories } = productDto;
         try {
-            const exists = await productModel.findOne({
-                title,
-                description,
-                price
+            const exists = await prisma.product.findMany({
+                where: {
+                    title,
+                    description
+                }
             });
 
             if (exists) throw CustomError.badRequest("Product with the same properties already exists.");
 
-            const product = await productModel.create({
-                title,
-                description,
-                price,
-                inStock,
-                product_image,
-                categories
+            const product = await prisma.product.create({
+                data: {
+                    title,
+                    description,
+                    price: Number(price),
+                    inStock,
+                    product_image: product_image as any,
+                    categories: categories as any
+                },
+                select: {
+                    id: true,
+                    title: true,
+                    description: true,
+                    price: true,
+                    inStock: true,
+                    product_image: true
+                }
             });
-
-            await product.save();
 
             return ProductMapper.ProductEntityFromObject(product);
         } catch (err) {
@@ -49,23 +81,23 @@ export class ProductDatasourceImpl implements ProductDatasource {
     getAll = async (paginationDto: PaginationDto): Promise<ProductEntity[]> => {
         const { page, limit, sort } = paginationDto;
         try {
-            const sortOptionsResults = validateSort(sort);
+            const docs: number = await prisma.product.count();
 
-            const products = await productModel
-                .find()
-                .skip((page - 1) * limit)
-                .limit(limit)
-                .sort(sortOptionsResults);
+            const skipValue = (page - 1) * limit;
 
-            const docs: number = await productModel.countDocuments();
+            const categories = await prisma.product.findMany({
+                take: limit,
+                skip: skipValue,
+                orderBy: { title: sort }
+            });
 
-            const paginationResults = executePagination({
+            const paginationResults: PaginationResultsProps = executePagination({
                 page,
                 limit,
                 sort,
-                productUrl: "products",
+                productUrl: "categories",
                 docs,
-                products
+                products: categories
             });
 
             return paginationResults as unknown as ProductEntity[];
@@ -81,7 +113,7 @@ export class ProductDatasourceImpl implements ProductDatasource {
     getById = async (productIdDto: GeneralIdDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
         try {
-            const existsProduct = await productModel.findById(id);
+            const existsProduct = await prisma.product.findUnique({ where: { id } });
 
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
@@ -100,10 +132,12 @@ export class ProductDatasourceImpl implements ProductDatasource {
     deleteById = async (productIdDto: GeneralIdDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
         try {
-            const deleted = await productModel.findByIdAndDelete(id);
+            const deleted = await prisma.product.delete({ where: { id } });
+
             if (!deleted) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
             }
+
             return ProductMapper.ProductEntityFromObject(deleted);
         } catch (err) {
             if (err instanceof CustomError) {
@@ -117,7 +151,20 @@ export class ProductDatasourceImpl implements ProductDatasource {
     updateById = async (productIdDto: GeneralIdDto, productDto: ProductDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
         try {
-            const existsProduct = await productModel.findOneAndUpdate({ _id: id }, productDto, { new: true });
+            const existsProduct = await prisma.product.update({
+                where: { id },
+                data: productDto as any, //Todo fixear luego
+                select: {
+                    id: true,
+                    categories: true,
+                    description: true,
+                    inStock: true,
+                    price: true,
+                    product_image: true,
+                    title: true
+                }
+            });
+
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
             }
@@ -138,7 +185,19 @@ export class ProductDatasourceImpl implements ProductDatasource {
     ): Promise<ProductEntity> => {
         const { id } = productIdDto;
         try {
-            const existsProduct = await productModel.findOneAndUpdate({ _id: id }, productPartialDto, { new: true });
+            const existsProduct = await prisma.product.update({
+                where: { id },
+                data: productPartialDto as any, //Todo fixear luego
+                select: {
+                    id: true,
+                    categories: true,
+                    description: true,
+                    inStock: true,
+                    price: true,
+                    product_image: true,
+                    title: true
+                }
+            });
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
             }
