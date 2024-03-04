@@ -7,6 +7,6 @@ export interface ProductProps {
     description?: string;
     inStock?: number;
     price?: string;
-    product_image?: ProductImageProps[];
+    product_images?: ProductImageProps[];
     categories?: CategoryProps[];
 }

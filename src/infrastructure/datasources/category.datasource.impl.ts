@@ -78,7 +78,7 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
                 page,
                 limit,
                 sort,
-                productUrl: "categories",
+                endpointName: "categories",
                 docs,
                 products: categories
             });

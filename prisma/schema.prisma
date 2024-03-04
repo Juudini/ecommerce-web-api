@@ -26,8 +26,8 @@ model product {
   inStock     Int
   price       Float  @default(0)
 
-  categories    category[]
-  product_image product_image[]
+  categories     category[]
+  product_images product_image[]
 }
 
 model product_image {

@@ -5,9 +5,9 @@ export class ProductEntity {
         public id: string,
         public title: string,
         public description: string,
-        public price: string,
+        public price: number,
         public inStock: number,
-        public productImage?: ProductImageProps[],
+        public productImages?: ProductImageProps[],
         public categories?: CategoryProps[]
     ) {}
 }
