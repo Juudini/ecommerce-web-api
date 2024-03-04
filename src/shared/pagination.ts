@@ -42,6 +42,9 @@ export const executePagination = ({ page, limit, sort, productUrl, docs, product
         results.nextPage = null;
         results.nextLink = null;
     }
+    if (status == "error") {
+        results.prevLink = null;
+    }
 
     return results;
 };
