@@ -12,6 +12,7 @@ import {
 import { executePagination } from "../../domain";
 import { ProductMapper } from "../mappers";
 import prisma from "../../libs/prisma";
+
 export interface ProductProps {
     title: string;
     description: string;
@@ -40,14 +41,11 @@ export class ProductDatasourceImpl implements ProductDatasource {
     create = async (productDto: ProductDto): Promise<ProductEntity> => {
         const { title, description, price, inStock, product_image, categories } = productDto;
         try {
-            const exists = await prisma.product.findMany({
-                where: {
-                    title,
-                    description
-                }
+            const existingProduct = await prisma.product.findFirst({
+                where: { title, description }
             });
 
-            if (exists) throw CustomError.badRequest("Product with the same properties already exists.");
+            if (existingProduct) throw CustomError.badRequest("Product with the same properties already exists.");
 
             const product = await prisma.product.create({
                 data: {
@@ -55,8 +53,17 @@ export class ProductDatasourceImpl implements ProductDatasource {
                     description,
                     price: Number(price),
                     inStock,
-                    product_image: product_image as any,
-                    categories: categories as any
+                    product_image: {
+                        createMany: {
+                            data: product_image!.map(imageUrl => ({ url: imageUrl })) as any
+                        }
+                    },
+                    categories: {
+                        connectOrCreate: categories!.map(categoryName => ({
+                            where: { title: categoryName },
+                            create: { title: categoryName }
+                        })) as any
+                    }
                 },
                 select: {
                     id: true,
@@ -64,7 +71,8 @@ export class ProductDatasourceImpl implements ProductDatasource {
                     description: true,
                     price: true,
                     inStock: true,
-                    product_image: true
+                    product_image: true,
+                    categories: true
                 }
             });
 
@@ -88,7 +96,8 @@ export class ProductDatasourceImpl implements ProductDatasource {
             const categories = await prisma.product.findMany({
                 take: limit,
                 skip: skipValue,
-                orderBy: { title: sort }
+                orderBy: { title: sort },
+                include: { product_image: true, categories: true }
             });
 
             const paginationResults: PaginationResultsProps = executePagination({
