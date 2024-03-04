@@ -4,13 +4,13 @@ interface ExecutePaginationProps {
     limit: number;
     page: number;
     sort: Sort;
-    productUrl: string;
+    endpointName: string;
     docs: number;
     products: any;
 }
 
-export const executePagination = ({ page, limit, sort, productUrl, docs, products }: ExecutePaginationProps) => {
-    const baseUrl: string = `/api/${productUrl}?limit=${limit}&sort=${sort}`;
+export const executePagination = ({ page, limit, sort, endpointName, docs, products }: ExecutePaginationProps) => {
+    const baseUrl: string = `/api/${endpointName}?limit=${limit}&sort=${sort}`;
 
     const hasPrevPage: boolean = page > 1;
     const hasNextPage: boolean = page < docs;
