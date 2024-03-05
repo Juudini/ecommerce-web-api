@@ -52,13 +52,18 @@ cd pizzeria-api
 npm i
 ```
 
-3. Launch server:
+4. Migrate to initial schema to the database:
+
+```
+npx prisma db push
+
+5. Launch server:
 
 ```
 npm run dev
 ```
 
-Make sure you have the `.env.dev` file in the root folder.
+Make sure you have the `.env` file in the root folder.
 
 
 # To access the documentation, open your web browser and enter the following URL:
