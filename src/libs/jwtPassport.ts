@@ -25,7 +25,7 @@ const jwtPassportInitialize = () => {
 const cookieExtractor = (req: any) => {
     let token = null;
     if (req && req.cookies) {
-        token = req.cookies["MagicianToken"];
+        token = req.cookies[SECRET_KEY];
     }
     return token;
 };
