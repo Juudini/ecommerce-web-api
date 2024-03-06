@@ -56,6 +56,7 @@ npm i
 
 ```
 npx prisma db push
+```
 
 5. Launch server:
 
