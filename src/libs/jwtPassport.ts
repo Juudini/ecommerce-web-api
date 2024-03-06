@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
-const SECRET_KEY = "MagicianToken";
+import { envs } from "../config";
+const SECRET_KEY = envs.SECRET_KEY;
 
 const jwtPassportInitialize = () => {
     passport.use(
