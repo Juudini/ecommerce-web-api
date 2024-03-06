@@ -6,19 +6,20 @@ import {
     ProductDto,
     GeneralIdDto,
     ProductEntity,
-    ProductPartialDto,
-    PaginationDto
+    ProductPartialDto
 } from "../../domain";
-import { executePagination } from "../../domain";
+import { PaginationDto, executePagination } from "../../shared";
 import { ProductMapper } from "../mappers";
 import prisma from "../../libs/prisma";
+import { uploadImages } from "../../libs/cloudinary";
+
 export interface ProductProps {
     title: string;
     description: string;
     price: string;
     inStock: number;
     id?: string;
-    product_image?: ProductImageProps[];
+    product_images?: ProductImageProps[];
     categories?: CategoryProps[];
 }
 
@@ -38,25 +39,26 @@ interface PaginationResultsProps {
 
 export class ProductDatasourceImpl implements ProductDatasource {
     create = async (productDto: ProductDto): Promise<ProductEntity> => {
-        const { title, description, price, inStock, product_image, categories } = productDto;
+        const { title, description, price, inStock, product_images, categories } = productDto;
         try {
-            const exists = await prisma.product.findMany({
-                where: {
-                    title,
-                    description
-                }
+            const existingProduct = await prisma.product.findFirst({
+                where: { title, description }
             });
 
-            if (exists) throw CustomError.badRequest("Product with the same properties already exists.");
+            if (existingProduct) throw CustomError.badRequest("Product with the same properties already exists.");
 
-            const product = await prisma.product.create({
+            const dbProduct = await prisma.product.create({
                 data: {
                     title,
                     description,
-                    price: Number(price),
+                    price,
                     inStock,
-                    product_image: product_image as any,
-                    categories: categories as any
+                    categories: {
+                        connectOrCreate: categories!.map((categoryName): any => ({
+                            where: { title: categoryName },
+                            create: { title: categoryName }
+                        }))
+                    }
                 },
                 select: {
                     id: true,
@@ -64,11 +66,23 @@ export class ProductDatasourceImpl implements ProductDatasource {
                     description: true,
                     price: true,
                     inStock: true,
-                    product_image: true
+                    product_images: true,
+                    categories: true
                 }
             });
-
-            return ProductMapper.ProductEntityFromObject(product);
+            //Todo, add logic:
+            //?(-) To add image before created product
+            //* Give the product id and create product_images with these id
+            if (product_images!.length > 0) {
+                const uploadedImages = await uploadImages(product_images as any);
+                await prisma.product_image.createMany({
+                    data: uploadedImages.map(image => ({
+                        url: image,
+                        productId: dbProduct.id
+                    }))
+                });
+            }
+            return ProductMapper.ProductEntityFromObject(dbProduct);
         } catch (err) {
             if (err instanceof CustomError) {
                 throw err;
@@ -88,14 +102,15 @@ export class ProductDatasourceImpl implements ProductDatasource {
             const categories = await prisma.product.findMany({
                 take: limit,
                 skip: skipValue,
-                orderBy: { title: sort }
+                orderBy: { price: sort },
+                include: { product_images: true, categories: true }
             });
 
             const paginationResults: PaginationResultsProps = executePagination({
                 page,
                 limit,
                 sort,
-                productUrl: "categories",
+                endpointName: "products",
                 docs,
                 products: categories
             });
@@ -150,17 +165,27 @@ export class ProductDatasourceImpl implements ProductDatasource {
 
     updateById = async (productIdDto: GeneralIdDto, productDto: ProductDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
+        const { title, description, inStock, price, categories } = productDto;
+
         try {
             const existsProduct = await prisma.product.update({
                 where: { id },
-                data: productDto as any, //Todo fixear luego
+                data: {
+                    title,
+                    description,
+                    inStock,
+                    price,
+                    categories: {
+                        updateMany: categories!.map((categoryName: any) => categoryName.title)
+                    }
+                },
                 select: {
                     id: true,
                     categories: true,
                     description: true,
                     inStock: true,
                     price: true,
-                    product_image: true,
+                    product_images: true,
                     title: true
                 }
             });
@@ -187,14 +212,14 @@ export class ProductDatasourceImpl implements ProductDatasource {
         try {
             const existsProduct = await prisma.product.update({
                 where: { id },
-                data: productPartialDto as any, //Todo fixear luego
+                data: productPartialDto as any, //Todo: fix type later
                 select: {
                     id: true,
                     categories: true,
                     description: true,
                     inStock: true,
                     price: true,
-                    product_image: true,
+                    product_images: true,
                     title: true
                 }
             });

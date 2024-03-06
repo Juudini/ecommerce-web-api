@@ -5,10 +5,9 @@ import {
     ProductRepository,
     ProductPartialDto,
     GeneralIdDto,
-    ProductUseCase,
-    PaginationDto,
-    PaginationProps
+    ProductUseCase
 } from "../../domain";
+import { PaginationDto, PaginationProps } from "../../shared";
 
 export class ProductController {
     constructor(private readonly pizzaRepository: ProductRepository) {}

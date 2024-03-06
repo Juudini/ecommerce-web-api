@@ -1,4 +1,5 @@
-import { ProductDto, GeneralIdDto, ProductPartialDto, PaginationDto, ProductRepository } from "../index";
+import { ProductDto, GeneralIdDto, ProductPartialDto, ProductRepository } from "../index";
+import { PaginationDto } from "../../shared";
 
 interface IProductUseCase {
     create(productDto: ProductDto): Promise<ProductDto>;

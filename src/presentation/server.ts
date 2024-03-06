@@ -6,6 +6,8 @@ import morgan from "morgan";
 import SwaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { logger, swaggerOptions } from "../config"; // Winston and Swagger
+// import jwtPassportInitialize from "@/libs/jwtPassport";
+// import passport from "passport";
 
 interface Options {
     port: number;
@@ -32,6 +34,12 @@ export class Server {
 
         /* ★━━━━━━━━━━━★ Swagger Docs ★━━━━━━━━━━━★ */
         const swaggerSpecs = swaggerJSDoc(swaggerOptions);
+
+        // //~> | Passport Strategies
+        // jwtPassportInitialize();
+
+        // /* ★━━━━━━━━━━━★ Passport ★━━━━━━━━━━━★ */
+        // this.app.use(passport.initialize());
 
         /* ★━━━━━━━━━━━★ Routes ★━━━━━━━━━━━★ */
         this.app.use(this.routes);

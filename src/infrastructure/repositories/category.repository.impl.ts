@@ -4,9 +4,10 @@ import {
     GeneralIdDto,
     CategoryEntity,
     CategoryRepository,
-    CategoryPartialDto,
-    PaginationDto
+    CategoryPartialDto
 } from "../../domain";
+import { PaginationDto } from "../../shared";
+
 export class CategoryRepositoryImpl implements CategoryRepository {
     constructor(private readonly categoryDatasource: CategoryDatasource) {}
 

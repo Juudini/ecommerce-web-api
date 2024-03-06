@@ -1,4 +1,5 @@
-import { ProductDto, GeneralIdDto, ProductPartialDto, ProductEntity, PaginationDto } from "../index";
+import { ProductDto, GeneralIdDto, ProductPartialDto, ProductEntity } from "../index";
+import { PaginationDto } from "../../shared";
 
 export abstract class ProductDatasource {
     abstract create(productDto: ProductDto): Promise<ProductEntity>;

@@ -1,4 +1,5 @@
-import { CategoryDto, GeneralIdDto, CategoryPartialDto, CategoryEntity, PaginationDto } from "../index";
+import { PaginationDto } from "../../shared";
+import { CategoryDto, GeneralIdDto, CategoryPartialDto, CategoryEntity } from "../index";
 
 export abstract class CategoryDatasource {
     abstract create(categoryDto: CategoryDto): Promise<CategoryEntity>;

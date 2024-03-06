@@ -7,10 +7,9 @@ import {
     CategoryDto,
     GeneralIdDto,
     CategoryEntity,
-    CategoryPartialDto,
-    PaginationDto,
-    executePagination
+    CategoryPartialDto
 } from "../../domain";
+import { PaginationDto, executePagination } from "../../shared";
 import { CategoryMapper } from "../mappers";
 import { ProductProps } from "@/domain/types";
 
@@ -78,7 +77,7 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
                 page,
                 limit,
                 sort,
-                productUrl: "categories",
+                endpointName: "categories",
                 docs,
                 products: categories
             });
