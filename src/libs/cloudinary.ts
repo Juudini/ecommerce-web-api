@@ -1,10 +1,10 @@
 import { v2 as cloudinary } from "cloudinary";
-import { logger } from "../config";
+import { envs, logger } from "../config";
 import { CustomError } from "../domain";
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_SECRET
+    cloud_name: envs.CLOUDINARY_NAME,
+    api_key: envs.CLOUDINARY_API_KEY,
+    api_secret: envs.CLOUDINARY_SECRET
 });
 
 export const uploadImages = async (images: File[]) => {

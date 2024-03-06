@@ -6,10 +6,9 @@ import {
     ProductDto,
     GeneralIdDto,
     ProductEntity,
-    ProductPartialDto,
-    PaginationDto
+    ProductPartialDto
 } from "../../domain";
-import { executePagination } from "../../domain";
+import { PaginationDto, executePagination } from "../../shared";
 import { ProductMapper } from "../mappers";
 import prisma from "../../libs/prisma";
 import { uploadImages } from "../../libs/cloudinary";

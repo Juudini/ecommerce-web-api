@@ -5,10 +5,9 @@ import {
     CategoryRepository,
     CategoryPartialDto,
     GeneralIdDto,
-    CategoryUseCase,
-    PaginationDto,
-    PaginationProps
+    CategoryUseCase
 } from "../../domain";
+import { PaginationDto, PaginationProps } from "../../shared";
 
 export class CategoryController {
     constructor(private readonly categoryRepository: CategoryRepository) {}

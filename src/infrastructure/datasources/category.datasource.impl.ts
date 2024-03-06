@@ -7,10 +7,9 @@ import {
     CategoryDto,
     GeneralIdDto,
     CategoryEntity,
-    CategoryPartialDto,
-    PaginationDto,
-    executePagination
+    CategoryPartialDto
 } from "../../domain";
+import { PaginationDto, executePagination } from "../../shared";
 import { CategoryMapper } from "../mappers";
 import { ProductProps } from "@/domain/types";
 

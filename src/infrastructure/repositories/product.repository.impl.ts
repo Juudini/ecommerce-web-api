@@ -4,9 +4,9 @@ import {
     GeneralIdDto,
     ProductEntity,
     ProductRepository,
-    ProductPartialDto,
-    PaginationDto
+    ProductPartialDto
 } from "../../domain";
+import { PaginationDto } from "../../shared";
 
 export class ProductRepositoryImpl implements ProductRepository {
     constructor(private readonly productDatasource: ProductDatasource) {}

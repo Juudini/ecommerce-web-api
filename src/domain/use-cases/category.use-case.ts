@@ -1,4 +1,5 @@
-import { CategoryDto, GeneralIdDto, CategoryPartialDto, PaginationDto, CategoryRepository } from "../index";
+import { CategoryDto, GeneralIdDto, CategoryPartialDto, CategoryRepository } from "../index";
+import { PaginationDto } from "../../shared";
 
 interface ICategoryUseCase {
     create(categoryDto: CategoryDto): Promise<CategoryDto>;
