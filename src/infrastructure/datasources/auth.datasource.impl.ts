@@ -24,7 +24,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
                     password: true,
                     name: true,
                     roles: true,
-                    image: true,
+                    profile_image: true,
                     isActive: true,
                     products: true,
                     emailVerified: true
@@ -43,7 +43,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
     }
 
     async signup(signupUserDto: SignupUserDto): Promise<UserEntity> {
-        const { name, email, password, image } = signupUserDto;
+        const { name, email, password, profile_image } = signupUserDto;
 
         try {
             const exists = await prisma.user.findUnique({ where: { email } });
@@ -54,8 +54,13 @@ export class AuthDatasourceImpl implements AuthDatasource {
                     name: name,
                     email: email,
                     password: this.hashPassword(password),
-                    image,
-                    roles: { create: { name: "user" } }
+                    profile_image,
+                    roles: {
+                        connectOrCreate: {
+                            where: { name: "user" },
+                            create: { name: "user" }
+                        }
+                    }
                 },
                 include: { roles: true, products: true }
             });

@@ -12,13 +12,13 @@ interface SigninUserUseCase {
 
 export class SigninUser implements SigninUserUseCase {
     constructor(
-        private readonly authResository: AuthRepository,
+        private readonly authRepository: AuthRepository,
         private readonly signToken: SignToken = JwtAdapter.generateToken
     ) {}
 
     async execute(signinUserDto: SigninUserDto): Promise<UserToken> {
         // Crear usuario
-        const user = await this.authResository.signin(signinUserDto);
+        const user = await this.authRepository.signin(signinUserDto);
 
         // Token
         const token = await this.signToken({ id: user.id }, "2h");
@@ -29,7 +29,9 @@ export class SigninUser implements SigninUserUseCase {
             user: {
                 id: user.id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                image: user.profile_image ?? "",
+                roles: user.roles
             }
         };
     }
