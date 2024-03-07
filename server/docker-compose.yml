@@ -2,17 +2,18 @@ version: "3.8"
 
 services:
   db:
-    image: mysql:latest
+    image: postgres:latest
     container_name: ${DB_DATABASE}
     restart: always
     volumes:
-      - mysql-data:/var/lib/mysql
+      - postgres:/var/lib/postgresql/data
     environment:
-      - MYSQL_DATABASE=${DB_DATABASE}
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DATABASE=${DB_DATABASE}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
       - "${DOCKER_PORT}:${DB_PORT}"
 
 volumes:
-  mysql-data:
+  postgres:
     name: ${DB_DATABASE}
