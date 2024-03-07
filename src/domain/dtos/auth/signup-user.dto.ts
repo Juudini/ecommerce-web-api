@@ -4,7 +4,8 @@ export class SignupUserDto {
     private constructor(
         public name: string,
         public email: string,
-        public password: string
+        public password: string,
+        public image?: string
     ) {}
 
     static create(object: { [key: string]: any }): [string?, SignupUserDto?] {

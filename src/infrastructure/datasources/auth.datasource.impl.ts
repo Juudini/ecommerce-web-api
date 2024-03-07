@@ -43,16 +43,24 @@ export class AuthDatasourceImpl implements AuthDatasource {
     }
 
     async signup(signupUserDto: SignupUserDto): Promise<UserEntity> {
-        const { name, email, password } = signupUserDto;
+        const { name, email, password, image } = signupUserDto;
 
         try {
             const exists = await prisma.user.findUnique({ where: { email } });
             if (exists) throw CustomError.badRequest("User already exists");
 
             const user = await prisma.user.create({
-                data: { name: name, email: email, password: this.hashPassword(password) }
+                data: {
+                    name: name,
+                    email: email,
+                    password: this.hashPassword(password),
+                    image,
+                    roles: { create: { name: "user" } }
+                },
+                include: { roles: true, products: true }
             });
-
+            //TODO: delete console
+            console.log(user, "user en signup auth.datasource");
             return UserMapper.userEntityFromObject(user);
         } catch (err) {
             if (err instanceof CustomError) {
