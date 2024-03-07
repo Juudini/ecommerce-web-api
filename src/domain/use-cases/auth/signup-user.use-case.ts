@@ -30,7 +30,9 @@ export class SignupUser implements SignupUserUseCase {
             user: {
                 id: user.id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                image: user.profile_image ?? "",
+                roles: user.roles
             }
         };
     }

@@ -3,6 +3,8 @@
 #### This project is a Pizzeria application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
 <br>
 
+![En Progreso](https://img.shields.io/badge/Status-In%20Progress-yellow)
+
 <details open> 
   <summary><h2>🧩 Languages & Tools</h2></summary>
     

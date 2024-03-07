@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AuthRepository, CustomError, SigninUser, SigninUserDto, SignupUser, SignupUserDto } from "../../domain";
-import prisma from "@/libs/prisma";
+import prisma from "../../libs/prisma";
 
 export class AuthController {
     constructor(private readonly authRepository: AuthRepository) {}
