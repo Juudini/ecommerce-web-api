@@ -195,10 +195,19 @@ export class ProductDatasourceImpl implements ProductDatasource {
 
     updateById = async (productIdDto: GeneralIdDto, productDto: ProductDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
-        const { title, description, inStock, price, categories } = productDto;
+        const { title, description, inStock, price, categories, product_images } = productDto;
 
         try {
-            const existsProduct = await prisma.product.update({
+            const existsProduct = await prisma.product.findUnique({
+                where: { id },
+                include: { product_images: true }
+            });
+
+            if (!existsProduct) {
+                throw CustomError.notFound(`Product with ID: ${id} not found`);
+            }
+
+            const updatedProduct = await prisma.product.update({
                 where: { id },
                 data: {
                     title,
@@ -206,7 +215,7 @@ export class ProductDatasourceImpl implements ProductDatasource {
                     inStock,
                     price,
                     categories: {
-                        updateMany: categories!.map((categoryName: any) => categoryName.title)
+                        set: categories?.map(categoryName => ({ title: categoryName }))
                     }
                 },
                 select: {
@@ -220,11 +229,23 @@ export class ProductDatasourceImpl implements ProductDatasource {
                 }
             });
 
-            if (!existsProduct) {
-                throw CustomError.notFound(`Product with ID: ${id} not found`);
+            if (product_images && product_images.length > 0) {
+                const publicIds = existsProduct.product_images.map(image => {
+                    const urlParts = image.url.split("/");
+                    return urlParts[urlParts.length - 1].split(".")[0];
+                });
+                await deleteImages(publicIds);
+
+                const uploadedImages = await uploadImages(product_images as ImageProps[]);
+                await prisma.product_image.createMany({
+                    data: uploadedImages.map(image => ({
+                        url: image,
+                        productId: updatedProduct.id
+                    }))
+                });
             }
 
-            return ProductMapper.ProductEntityFromObject(existsProduct);
+            return ProductMapper.ProductEntityFromObject(updatedProduct);
         } catch (err) {
             if (err instanceof CustomError) {
                 throw err;
@@ -239,10 +260,11 @@ export class ProductDatasourceImpl implements ProductDatasource {
         productPartialDto: ProductPartialDto
     ): Promise<ProductEntity> => {
         const { id } = productIdDto;
+        const { title, description, inStock, price, categories, product_images } = productPartialDto;
+
         try {
-            const existsProduct = await prisma.product.update({
+            const existsProduct = await prisma.product.findUnique({
                 where: { id },
-                data: productPartialDto as any, //Todo: fix type later
                 select: {
                     id: true,
                     title: true,
@@ -253,10 +275,52 @@ export class ProductDatasourceImpl implements ProductDatasource {
                     categories: true
                 }
             });
+
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
             }
-            return ProductMapper.ProductEntityFromObject(existsProduct);
+
+            const updatedProduct = await prisma.product.update({
+                where: { id },
+                data: {
+                    title: title || existsProduct.title,
+                    description: description || existsProduct.description,
+                    inStock: inStock || existsProduct.inStock,
+                    price: price || existsProduct.price,
+                    categories: {
+                        set:
+                            categories?.map((categoryName: any) => ({ title: categoryName })) ||
+                            existsProduct.categories
+                    }
+                },
+                select: {
+                    id: true,
+                    title: true,
+                    description: true,
+                    price: true,
+                    inStock: true,
+                    product_images: true,
+                    categories: true
+                }
+            });
+
+            if (product_images && product_images.length > 0) {
+                const publicIds = existsProduct.product_images.map(image => {
+                    const urlParts = image.url.split("/");
+                    return urlParts[urlParts.length - 1].split(".")[0];
+                });
+                await deleteImages(publicIds);
+
+                const uploadedImages = await uploadImages(product_images as ImageProps[]);
+                await prisma.product_image.createMany({
+                    data: uploadedImages.map(image => ({
+                        url: image,
+                        productId: updatedProduct.id
+                    }))
+                });
+            }
+
+            return ProductMapper.ProductEntityFromObject(updatedProduct);
         } catch (err) {
             if (err instanceof CustomError) {
                 throw err;

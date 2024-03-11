@@ -4,10 +4,10 @@ export class ProductPartialDto implements ProductProps {
     public id?: string;
     public title?: string;
     public description?: string;
-    public price?: string;
+    public price?: number;
     public inStock?: number;
     public categories?: CategoryProps[];
-    public product_image?: ProductImageProps[];
+    public product_images?: ProductImageProps[];
 
     private constructor(partialData: Partial<ProductPartialDto>) {
         Object.assign(this, partialData);
