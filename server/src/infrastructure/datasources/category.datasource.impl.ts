@@ -121,7 +121,10 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
     deleteById = async (generalIdDto: GeneralIdDto): Promise<CategoryEntity> => {
         const { id } = generalIdDto;
         try {
-            const deleted = await prisma.category.delete({ where: { id } });
+            const deleted = await prisma.category.delete({
+                where: { id },
+                select: { id: true, products: true, title: true }
+            });
             if (!deleted) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
             }
