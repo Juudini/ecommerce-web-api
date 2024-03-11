@@ -1,4 +1,4 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=800&size=52&duration=2500&pause=600&color=1AF7F5&center=true&vCenter=true&repeat=false&random=false&width=1800&lines=PIZZERIA+API++with+Clean+Architecture+DDD+and+Clean+Code)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=800&size=52&duration=2500&pause=600&color=1AF7F5&center=true&vCenter=true&repeat=false&random=false&width=1800&lines=ECOMMERCE+API++with+Clean+Architecture+DDD+and+Clean+Code)](https://git.io/typing-svg)
 
 #### This project is a Ecommerce application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
 
