@@ -1,20 +1,32 @@
-import { v2 as cloudinary } from "cloudinary";
 import { envs, logger } from "../config";
 import { CustomError } from "../domain";
+import { v2 as cloudinary } from "cloudinary";
+
 cloudinary.config({
     cloud_name: envs.CLOUDINARY_NAME,
     api_key: envs.CLOUDINARY_API_KEY,
     api_secret: envs.CLOUDINARY_SECRET
 });
 
-export const uploadImages = async (images: File[]) => {
-    try {
-        const uploadPromises = images.map(async image => {
-            try {
-                const buffer = await image.arrayBuffer();
-                const base64Image = Buffer.from(buffer).toString("base64");
+export interface ImageProps {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    buffer: Buffer;
+    size: number;
+}
 
-                const cloudinaryResponse = await cloudinary.uploader.upload(`data:${image.type};base64,${base64Image}`);
+export const uploadImages = async (images: ImageProps[]) => {
+    try {
+        const uploadPromises = images.map(async (image: ImageProps) => {
+            try {
+                const buffer = image.buffer;
+                const base64Image = buffer.toString("base64");
+
+                const cloudinaryResponse = await cloudinary.uploader.upload(
+                    `data:${image.mimetype};base64,${base64Image}`
+                );
 
                 return cloudinaryResponse.secure_url;
             } catch (err) {

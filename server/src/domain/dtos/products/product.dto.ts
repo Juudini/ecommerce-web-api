@@ -1,4 +1,3 @@
-import { CategoryProps, ProductImageProps } from "../../types";
 //Todo: add validations with zod
 export class ProductDto {
     private constructor(
@@ -7,11 +6,11 @@ export class ProductDto {
         public price: number,
         public inStock: number,
         public id?: string,
-        public product_images?: ProductImageProps[],
-        public categories?: CategoryProps[]
+        public product_images?: object[],
+        public categories?: string[]
     ) {}
     static create = (object: { [key: string]: any }): [string?, ProductDto?] => {
-        const { id, title, description, price, inStock, product_image, categories } = object;
+        const { id, title, description, price, inStock, categories, product_images } = object;
 
         if (!title) return ["Missing title"];
         if (title.length < 3) return ["title too short"];
@@ -21,8 +20,20 @@ export class ProductDto {
         else if (description.length > 250) return ["Description too long"];
 
         if (!price) return ["Missing price"];
-        else if (typeof price !== "number") return ["Invalid price"];
 
-        return [undefined, new ProductDto(title, description, price, inStock, id, product_image, categories)];
+        const parsedCategories = JSON.parse(categories);
+
+        return [
+            undefined,
+            new ProductDto(
+                title,
+                description,
+                JSON.parse(price),
+                JSON.parse(inStock),
+                id,
+                product_images,
+                parsedCategories
+            )
+        ];
     };
 }
