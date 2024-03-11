@@ -40,13 +40,13 @@ Follow the steps below to set up and run the application in your local environme
 1. Clone this repository to your local machine:
 
 ```
-git clone https://github.com/Juudini/pizzeria-api.git
+git clone https://github.com/Juudini/ecommerce-web-api
 ```
 
 2. Navigate to the project directory:
 
 ```
-cd pizzeria-api
+cd ecommerce-web-api
 ```
 
 ### Start the Frontend:
@@ -65,19 +65,25 @@ npm run dev
 
 ### Start the Backend:
 
-1. Install project dependencies:
+1. Navigate to the project directory:
+
+```
+cd ecommerce-web-api/server
+```
+
+2. Install project dependencies:
 
 ```
 npm i
 ```
 
-2. Migrate to initial schema to the database:
+3. Migrate to initial schema to the database:
 
 ```
 npx prisma db push
 ```
 
-3. Launch server:
+4. Launch server:
 
 ```
 npm run dev
@@ -86,6 +92,8 @@ npm run dev
 Make sure you have the `.env` file in the root folder at /server.
 
 # To access the documentation, open your web browser and enter the following URL:
+
+## Still in progress
 
 ```
 http://localhost:4000/api/docs

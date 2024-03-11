@@ -1,6 +1,6 @@
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=800&size=52&duration=2500&pause=600&color=1AF7F5&center=true&vCenter=true&repeat=false&random=false&width=1800&lines=PIZZERIA+API++with+Clean+Architecture+DDD+and+Clean+Code)](https://git.io/typing-svg)
 
-#### This project is a Pizzeria application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
+#### This project is a Ecommerce application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
 
 <br>
 
@@ -40,13 +40,13 @@ Follow the steps below to set up and run the application in your local environme
 1. Clone this repository to your local machine:
 
 ```
-git clone https://github.com/Juudini/pizzeria-api.git
+git clone https://github.com/Juudini/ecommerce-web-api.git
 ```
 
 2. Navigate to the project directory:
 
 ```
-cd pizzeria-api
+cd ecommerce-web-api
 ```
 
 3. Install project dependencies:
@@ -72,7 +72,7 @@ Make sure you have the `.env` file in the root folder.
 # To access the documentation, open your web browser and enter the following URL:
 
 ```
-http://localhost:3000/api/docs
+http://localhost:4000/api/docs
 ```
 
 This will take you to the API documentation, where you can explore the endpoints and learn how to interact with the application.
