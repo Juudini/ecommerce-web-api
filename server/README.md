@@ -1,6 +1,6 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=800&size=52&duration=2500&pause=600&color=1AF7F5&center=true&vCenter=true&repeat=false&random=false&width=1800&lines=ECOMMERCE+API++with+Clean+Architecture+DDD+and+Clean+Code)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=800&size=52&duration=2500&pause=600&color=1AF7F5&center=true&vCenter=true&repeat=false&random=false&width=1800&lines=PIZZERIA+API++with+Clean+Architecture+DDD+and+Clean+Code)](https://git.io/typing-svg)
 
-#### This project is a Ecommerce application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
+#### This project is a Pizzeria application that demonstrates the use of Clean Architecture, Domain-Driven Design (DDD), and Clean Code principles. The application is designed to showcase best practices for building maintainable and scalable software.
 
 <br>
 
@@ -11,7 +11,7 @@
     
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=typescript,nodejs,express,postgresql,jest,postman,nextjs&perline=9" />
+    <img src="https://skillicons.dev/icons?i=typescript,nodejs,express,postgresql,jest,postman&perline=9" />
   </a>
 </p>
 </details>
@@ -49,46 +49,30 @@ git clone https://github.com/Juudini/pizzeria-api.git
 cd pizzeria-api
 ```
 
-### Start the Frontend:
-
-1. Install project dependencies:
+3. Install project dependencies:
 
 ```
 npm i
 ```
 
-1. Launch server:
-
-```
-npm run dev
-```
-
-### Start the Backend:
-
-1. Install project dependencies:
-
-```
-npm i
-```
-
-2. Migrate to initial schema to the database:
+4. Migrate to initial schema to the database:
 
 ```
 npx prisma db push
 ```
 
-3. Launch server:
+5. Launch server:
 
 ```
 npm run dev
 ```
 
-Make sure you have the `.env` file in the root folder at /server.
+Make sure you have the `.env` file in the root folder.
 
 # To access the documentation, open your web browser and enter the following URL:
 
 ```
-http://localhost:4000/api/docs
+http://localhost:3000/api/docs
 ```
 
 This will take you to the API documentation, where you can explore the endpoints and learn how to interact with the application.
@@ -100,4 +84,3 @@ This will take you to the API documentation, where you can explore the endpoints
 <a href="mailto:juudinidev@gmail.com">
 <img src="https://custom-icon-badges.demolab.com/badge/-Email-231b2e?style=for-the-badge&logoColor=F8D866&logo=gmail" alt="Email">
 </a>
-
