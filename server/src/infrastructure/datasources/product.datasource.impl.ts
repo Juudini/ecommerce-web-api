@@ -129,7 +129,18 @@ export class ProductDatasourceImpl implements ProductDatasource {
     getById = async (productIdDto: GeneralIdDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
         try {
-            const existsProduct = await prisma.product.findUnique({ where: { id } });
+            const existsProduct = await prisma.product.findUnique({
+                where: { id },
+                select: {
+                    id: true,
+                    title: true,
+                    description: true,
+                    price: true,
+                    inStock: true,
+                    product_images: true,
+                    categories: true
+                }
+            });
 
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
@@ -200,12 +211,12 @@ export class ProductDatasourceImpl implements ProductDatasource {
                 },
                 select: {
                     id: true,
-                    categories: true,
+                    title: true,
                     description: true,
-                    inStock: true,
                     price: true,
+                    inStock: true,
                     product_images: true,
-                    title: true
+                    categories: true
                 }
             });
 
@@ -234,18 +245,17 @@ export class ProductDatasourceImpl implements ProductDatasource {
                 data: productPartialDto as any, //Todo: fix type later
                 select: {
                     id: true,
-                    categories: true,
+                    title: true,
                     description: true,
-                    inStock: true,
                     price: true,
+                    inStock: true,
                     product_images: true,
-                    title: true
+                    categories: true
                 }
             });
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
             }
-
             return ProductMapper.ProductEntityFromObject(existsProduct);
         } catch (err) {
             if (err instanceof CustomError) {
