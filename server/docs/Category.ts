@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-empty-file */
+//* Schema
 /**
  * @swagger
  * components:
@@ -5,25 +7,21 @@
  *     Category:
  *       type: object
  *       properties:
- *         name:
+ *         title:
  *           type: string
- *         description:
- *           type: string
- *         price:
- *           type: number
- *         thumbnail:
- *           type: array
- *           items:
- *             type: string
- *           default: [""]
- *           description: Array of thumbnail URLs (["www.imagen1.com", "www.imagen2.com"])
+ *           description: The title of the category.
+ *           minLength: 3
+ *           maxLength: 50
+ *       required:
+ *         - title
  */
-//~> |
+
+//*~> |
 /**
  * @swagger
  * tags:
- *   - name: Categories
- *     description: Operations related to categories
+ *   name: Categories
+ *   description: Operations related to categories
  */
 //~> |Get
 /**
@@ -43,10 +41,11 @@
  *         schema:
  *           type: integer
  *         description: The page number
- *       - name: sort "asc" or "desc"
+ *       - name: sort
  *         in: query
  *         schema:
  *           type: string
+ *           enum: [asc, desc]
  *         description: Sort order for the categories
  *     responses:
  *       200:
@@ -57,15 +56,15 @@
 //~> |Get
 /**
  * @swagger
- * /categories/{empid}:
+ * /categories/{ctyid}:
  *   get:
- *     summary: Get an empanada by ID
+ *     summary: Get a category by ID
  *     tags: [Categories]
  *     parameters:
- *       - name: empid
+ *       - name: ctyid
  *         in: path
  *         required: true
- *         description: ID of the empanada to get
+ *         description: ID of the category to get
  *         schema:
  *           type: string
  *     responses:
@@ -79,7 +78,7 @@
  * @swagger
  * /categories:
  *   post:
- *     summary: Add a new empanada
+ *     summary: Add a new category
  *     tags: [Categories]
  *     requestBody:
  *       required: true
@@ -96,15 +95,15 @@
 //~> |Put
 /**
  * @swagger
- * /categories/{empid}:
+ * /categories/{ctyid}:
  *   put:
- *     summary: Update an empanada by ID
+ *     summary: Update a category by ID
  *     tags: [Categories]
  *     parameters:
- *       - name: empid
+ *       - name: ctyid
  *         in: path
  *         required: true
- *         description: ID of the empanada to update
+ *         description: ID of the category to update
  *         schema:
  *           type: string
  *     requestBody:
@@ -124,15 +123,15 @@
 //~> |Patch
 /**
  * @swagger
- * /categories/{empid}:
+ * /categories/{ctyid}:
  *   patch:
- *     summary: Update a beverage partially by ID
+ *     summary: Update a category partially by ID
  *     tags: [Categories]
  *     parameters:
- *       - name: empid
+ *       - name: ctyid
  *         in: path
  *         required: true
- *         description: ID of the beverage to update
+ *         description: ID of the category to update
  *         schema:
  *           type: string
  *     requestBody:
@@ -140,27 +139,27 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Beverage'
+ *             $ref: '#/components/schemas/Category'
  *     responses:
  *       204:
- *         description: Beverage updated partially successfully
+ *         description: Category updated partially successfully
  *       404:
- *         description: Beverage not found
+ *         description: Category not found
  *       400:
  *         description: Bad request
  */
 //~> |Delete
 /**
  * @swagger
- * /categories/{empid}:
+ * /categories/{ctyid}:
  *   delete:
- *     summary: Delete an empanada by ID
+ *     summary: Delete a category by ID
  *     tags: [Categories]
  *     parameters:
- *       - name: empid
+ *       - name: ctyid
  *         in: path
  *         required: true
- *         description: ID of the empanada to delete
+ *         description: ID of the category to delete
  *         schema:
  *           type: string
  *     responses:
