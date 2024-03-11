@@ -1,175 +1,57 @@
+/* eslint-disable unicorn/no-empty-file */
 /**
  * @swagger
  * components:
  *   schemas:
- *     Product:
+ *     ProductEntity:
  *       type: object
  *       properties:
- *         name:
+ *         id:
  *           type: string
- *           description: Name of the pizza
+ *           description: The unique identifier for the product (UUID).
+ *         title:
+ *           type: string
+ *           description: The title of the product.
  *         description:
  *           type: string
- *           description: Description of the pizza
+ *           description: The description of the product.
  *         price:
  *           type: number
- *           description: Price of the pizza
- *         type:
- *           type: string
- *           description: Type of pizza ("whole", "half")
- *         thumbnail:
+ *           description: The price of the product.
+ *         inStock:
+ *           type: number
+ *           description: The quantity of the product in stock.
+ *         product_images:
  *           type: array
  *           items:
- *             type: string
- *           default: [""]
- *           description: Array of thumbnail URLs (["www.imagen1.com", "www.imagen2.com"])
- */
-//~> |
-/**
- * @swagger
- * tags:
- *   - name: Products
- *     description: Operations about products
- */
-//~> |Get
-/**
- * @swagger
- * /products:
- *   get:
- *     summary: Get a list of available products
- *     tags: [Products]
- *     parameters:
- *       - name: limit
- *         in: query
- *         schema:
- *           type: integer
- *         description: The number of products to return per page
- *       - name: page
- *         in: query
- *         schema:
- *           type: integer
- *         description: The page number
- *       - name: sort "asc" or "desc"
- *         in: query
- *         schema:
- *           type: string
- *         description: Sort order for the products
- *     responses:
- *       200:
- *         description: List of products retrieved successfully
- *       500:
- *         description: Internal server error
- */
-//~> |Get
-/**
- * @swagger
- * /products/{pid}:
- *   get:
- *     summary: Retrieve a single pizza by ID
- *     tags: [Products]
- *     parameters:
- *       - name: pid
- *         in: path
- *         required: true
- *         description: ID of the pizza to retrieve
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Product retrieved successfully
- *       404:
- *         description: Product not found
- */
-//~> |Post
-/**
- * @swagger
- * /products:
- *   post:
- *     summary: Add a new pizza
- *     tags: [Products]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Product'
- *     responses:
- *       201:
- *         description: Product added successfully
- *       400:
- *         description: Bad request
- */
-//~> |Put
-/**
- * @swagger
- * /products/{pid}:
- *   put:
- *     summary: Update a pizza by ID
- *     tags: [Products]
- *     parameters:
- *       - name: pid
- *         in: path
- *         required: true
- *         description: ID of the pizza to update
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Product'
- *     responses:
- *       204:
- *         description: Product updated successfully
- *       404:
- *         description: Product not found
- */
-//~> |Patch
-/**
- * @swagger
- * /products/{pid}:
- *   patch:
- *     summary: Update a pizza partially by ID
- *     tags: [Products]
- *     parameters:
- *       - name: pid
- *         in: path
- *         required: true
- *         description: ID of the pizza to update
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Product'
- *     responses:
- *       204:
- *         description: Product updated partially successfully
- *       404:
- *         description: Product not found
- *       400:
- *         description: Bad request
- */
-//~> |Delete
-/**
- * @swagger
- * /products/{pid}:
- *   delete:
- *     summary: Delete a pizza by ID
- *     tags: [Products]
- *     parameters:
- *       - name: pid
- *         in: path
- *         required: true
- *         description: ID of the pizza to delete
- *         schema:
- *           type: string
- *     responses:
- *       204:
- *         description: Product deleted successfully
- *       404:
- *         description: Product not found
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: number
+ *                 description: The identifier for the image (UUID).
+ *               url:
+ *                 type: string
+ *                 description: The URL of the image.
+ *               productId:
+ *                 type: string
+ *                 description: The unique identifier for the product (UUID).
+ *                 default: [""]
+ *           description: An array of product images.
+ *         categories:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: The identifier for the category (UUID).
+ *               title:
+ *                 type: string
+ *                 description: The title of the category.
+ *           description: An array of category names the product belongs to.
+ *       required:
+ *         - title
+ *         - description
+ *         - price
+ *         - inStock
  */
