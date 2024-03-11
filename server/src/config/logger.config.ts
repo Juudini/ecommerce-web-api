@@ -8,7 +8,7 @@ export const logger = winston.createLogger({
             filename: `${rootDirOverSrc}/logs/error.log`,
             level: "error"
         }),
-        new winston.transports.File({ filename: "./logs/combined.log" })
+        new winston.transports.File({ filename: `${rootDirOverSrc}/logs/combined.log` })
     ]
 });
 
