@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
+import "./index.css";
+import Filter from "../filter/Filter";
 
 export default function ProductComponent() {
     const [products, setProducts] = useState([]);
@@ -32,59 +33,68 @@ export default function ProductComponent() {
         );
     };
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-14">
-            {products.map((product: any) => (
-                <div
-                    key={product.id}
-                    className="w-full rounded-lg overflow-hidden group hover:border hover:border-2 hover:border-gray-500/75 hover:bg-[#f0f0f0]">
-                    <div className="px-24">
-                        <figure className="px-2 pt-2">
-                            {product.product_images.length > 0 ? (
-                                <img
-                                    src={product.product_images[0].url}
-                                    alt={product.title}
-                                    className="rounded-lg shadow-lg "
-                                    draggable="false"
-                                />
-                            ) : (
-                                <img
-                                    src="https://pbs.twimg.com/media/EUXVBu5WoAA46ua.jpg"
-                                    alt="Placeholder"
-                                    className="rounded-lg shadow-lg"
-                                    draggable="false"
-                                />
-                            )}
-                        </figure>
-                        <div className="card-body items-center text-center p-1">
-                            <p className="text-sm group-hover:text-[#555]">
-                                {product.categories
-                                    .map((category: any) => category.title)
-                                    .join(", ")}
-                            </p>
-                            <p className="text-lg group-hover:text-[#555]">
-                                {product.title}
-                            </p>
-                            <p className="text-[#d06e6a] group-hover:text-[#666]">
-                                Precio: ${product.price}
-                            </p>
-                            <button
-                                className="btn"
-                                onClick={() => toggleDescription(product.id)}>
-                                Ver más
-                            </button>
-                            {expandedProductId === product.id && (
-                                <div>
-                                    <p className="text-gray-800">
-                                        Descripción: {product.description}
+        <main className="content space-y-5">
+            {/* //Todo give categories to Filter component */}
+            <Filter />
+            <div className="products-content">
+                <div id="products" className="row">
+                    <div className="col-lg-4 col-md-6 col-sm-12">
+                        {products.map((product: any) => (
+                            <div key={product.id} className="cards">
+                                <div className="product">
+                                    {product.product_images.length > 0 ? (
+                                        <img
+                                            src={product.product_images[0].url}
+                                            alt={product.title}
+                                            className="rounded-lg shadow-lg "
+                                            draggable="false"
+                                        />
+                                    ) : (
+                                        <img
+                                            src="https://pbs.twimg.com/media/EUXVBu5WoAA46ua.jpg"
+                                            alt="Placeholder"
+                                            className="rounded-lg shadow-lg"
+                                            draggable="false"
+                                        />
+                                    )}
+
+                                    <p className="product-category">
+                                        {product.categories
+                                            .map(
+                                                (category: any) =>
+                                                    category.title
+                                            )
+                                            .join(", ")}
                                     </p>
-                                    <p>Stock: {product.inStock}</p>
+                                    <p className="product-title">
+                                        {product.title}
+                                    </p>
+                                    <p className="product-price">
+                                        ${product.price}
+                                    </p>
+                                    <button
+                                        className="details-button"
+                                        onClick={() =>
+                                            toggleDescription(product.id)
+                                        }>
+                                        Ver más
+                                    </button>
+                                    {expandedProductId === product.id && (
+                                        <div>
+                                            <p className="text-gray-800">
+                                                Descripción:{" "}
+                                                {product.description}
+                                            </p>
+                                            <p>Stock: {product.inStock}</p>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            ))}
-        </div>
+            </div>
+        </main>
     );
 }
 

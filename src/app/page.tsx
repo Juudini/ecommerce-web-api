@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <div data-theme="nord">
             <NavbarComponent />
-            <main className="flex min-h-screen flex-col items-center justify-between">
+            <main className="flex min-h-screen p-4">
                 <ProductComponent />
             </main>
         </div>
