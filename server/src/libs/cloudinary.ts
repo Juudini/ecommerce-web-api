@@ -42,3 +42,21 @@ export const uploadImages = async (images: ImageProps[]) => {
         throw CustomError.internalServer();
     }
 };
+
+export const deleteImages = async (publicIds: string[]) => {
+    try {
+        const deletePromises = publicIds.map(async (publicId: string) => {
+            try {
+                await cloudinary.uploader.destroy(publicId);
+            } catch (err) {
+                logger.error("Error to delete image from Cloudinary:", err);
+                throw CustomError.badRequest("Error to delete image from Cloudinary");
+            }
+        });
+
+        await Promise.all(deletePromises);
+    } catch (err) {
+        logger.error("Error to delete image from Cloudinary:", err);
+        throw CustomError.internalServer();
+    }
+};

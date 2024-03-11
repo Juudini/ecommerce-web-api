@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-at */
 import { CategoryProps, ProductImageProps } from "@/domain/types";
 import { logger } from "../../config";
 import {
@@ -11,7 +12,7 @@ import {
 import { PaginationDto, executePagination } from "../../shared";
 import { ProductMapper } from "../mappers";
 import prisma from "../../libs/prisma";
-import { ImageProps, uploadImages } from "../../libs/cloudinary";
+import { ImageProps, deleteImages, uploadImages } from "../../libs/cloudinary";
 
 export interface ProductProps {
     title: string;
@@ -128,7 +129,18 @@ export class ProductDatasourceImpl implements ProductDatasource {
     getById = async (productIdDto: GeneralIdDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
         try {
-            const existsProduct = await prisma.product.findUnique({ where: { id } });
+            const existsProduct = await prisma.product.findUnique({
+                where: { id },
+                select: {
+                    id: true,
+                    title: true,
+                    description: true,
+                    price: true,
+                    inStock: true,
+                    product_images: true,
+                    categories: true
+                }
+            });
 
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
@@ -147,13 +159,31 @@ export class ProductDatasourceImpl implements ProductDatasource {
     deleteById = async (productIdDto: GeneralIdDto): Promise<ProductEntity> => {
         const { id } = productIdDto;
         try {
-            const deleted = await prisma.product.delete({ where: { id } });
+            const deletedProduct = await prisma.product.delete({
+                where: { id },
+                select: {
+                    id: true,
+                    title: true,
+                    description: true,
+                    price: true,
+                    inStock: true,
+                    product_images: true,
+                    categories: true
+                }
+            });
 
-            if (!deleted) {
+            if (!deletedProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
             }
 
-            return ProductMapper.ProductEntityFromObject(deleted);
+            const publicIds = deletedProduct.product_images.map(image => {
+                const urlParts = image.url.split("/");
+                const publicId = urlParts[urlParts.length - 1].split(".")[0];
+                return publicId;
+            });
+            await deleteImages(publicIds);
+
+            return ProductMapper.ProductEntityFromObject(deletedProduct);
         } catch (err) {
             if (err instanceof CustomError) {
                 throw err;
@@ -181,12 +211,12 @@ export class ProductDatasourceImpl implements ProductDatasource {
                 },
                 select: {
                     id: true,
-                    categories: true,
+                    title: true,
                     description: true,
-                    inStock: true,
                     price: true,
+                    inStock: true,
                     product_images: true,
-                    title: true
+                    categories: true
                 }
             });
 
@@ -215,18 +245,17 @@ export class ProductDatasourceImpl implements ProductDatasource {
                 data: productPartialDto as any, //Todo: fix type later
                 select: {
                     id: true,
-                    categories: true,
+                    title: true,
                     description: true,
-                    inStock: true,
                     price: true,
+                    inStock: true,
                     product_images: true,
-                    title: true
+                    categories: true
                 }
             });
             if (!existsProduct) {
                 throw CustomError.notFound(`Product with ID: ${id} not found`);
             }
-
             return ProductMapper.ProductEntityFromObject(existsProduct);
         } catch (err) {
             if (err instanceof CustomError) {
