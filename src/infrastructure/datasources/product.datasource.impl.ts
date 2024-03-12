@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/prefer-at */
-import { CategoryProps, ProductImageProps } from "@/domain/types";
+import { CategoryProps, ProductImageProps } from "../../domain/types";
 import { logger } from "../../config";
 import {
     ProductDatasource,

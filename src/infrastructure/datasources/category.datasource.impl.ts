@@ -11,7 +11,7 @@ import {
 } from "../../domain";
 import { PaginationDto, executePagination } from "../../shared";
 import { CategoryMapper } from "../mappers";
-import { ProductProps } from "@/domain/types";
+import { ProductProps } from "../../domain/types";
 
 export interface CategoryProps {
     id: string;
