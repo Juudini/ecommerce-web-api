@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-empty-file */
-//* Schema
 /**
  * @swagger
  * components:
@@ -7,6 +5,9 @@
  *     Product:
  *       type: object
  *       properties:
+ *         id:
+ *           type: string
+ *           description: The identifier for the product (UUID).
  *         title:
  *           type: string
  *           description: The title of the product.
@@ -53,15 +54,17 @@
  *         - price
  *         - inStock
  */
-//*~> |
+
 /**
  * @swagger
  * tags:
  *   name: Products
  *   description: Operations related to products
  */
-//?~> |GET
+
+//?~>|GET
 /**
+ * @swagger
  * /products:
  *   get:
  *     summary: Get a list of available products
@@ -69,20 +72,20 @@
  *     parameters:
  *       - name: limit
  *         in: query
+ *         description: The number of products to return per page
  *         schema:
  *           type: integer
- *         description: The number of categories to return per page
  *       - name: page
  *         in: query
+ *         description: The page number
  *         schema:
  *           type: integer
- *         description: The page number
  *       - name: sort
  *         in: query
+ *         description: Sort order for the products
  *         schema:
  *           type: string
  *           enum: [asc, desc]
- *         description: Sort order for the categories
  *     responses:
  *       200:
  *         description: List of products retrieved successfully
@@ -95,8 +98,10 @@
  *       500:
  *         description: Internal server error
  */
-//?~> |POST
+
+///?~>|POST
 /**
+ * @swagger
  * /products:
  *   post:
  *     summary: Create a new product
@@ -106,7 +111,48 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: The title of the product.
+ *               description:
+ *                 type: string
+ *                 description: The description of the product.
+ *               price:
+ *                 type: number
+ *                 description: The price of the product.
+ *               inStock:
+ *                 type: number
+ *                 description: The quantity of the product in stock.
+ *               product_images:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: number
+ *                       description: The identifier for the image (UUID).
+ *                     url:
+ *                       type: string
+ *                       description: The URL of the image.
+ *                     pid:
+ *                       type: string
+ *                       description: The unique identifier for the product (UUID).
+ *                       default: [""]
+ *                 description: An array of product images.
+ *               categories:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       description: The identifier for the category (UUID).
+ *                     title:
+ *                       type: string
+ *                       description: The title of the category.
+ *                 description: An array of category names the product belongs to.
  *     responses:
  *       200:
  *         description: Product created successfully
@@ -120,8 +166,9 @@
  *         description: Internal server error
  */
 
-//?~> |GET
+//?~>|GET BY ID
 /**
+ * @swagger
  * /products/{pid}:
  *   get:
  *     summary: Get a product by ID
@@ -129,11 +176,11 @@
  *     parameters:
  *       - name: pid
  *         in: path
+ *         description: ID of the product to get
  *         required: true
  *         schema:
  *           type: string
  *           format: uuid
- *         description: ID of the product to get
  *     responses:
  *       200:
  *         description: Product retrieved successfully
@@ -147,8 +194,9 @@
  *         description: Internal server error
  */
 
-//?~> |PUT
+//?~>|UPDATE
 /**
+ * @swagger
  * /products/{pid}:
  *   put:
  *     summary: Update a product by ID
@@ -156,11 +204,11 @@
  *     parameters:
  *       - name: pid
  *         in: path
+ *         description: ID of the product to update
  *         required: true
  *         schema:
  *           type: string
  *           format: uuid
- *         description: ID of the product to update
  *     requestBody:
  *       required: true
  *       content:
@@ -180,8 +228,84 @@
  *         description: Internal server error
  */
 
-//?~> |DELETE
+//?~>|PATCH
 /**
+ * @swagger
+ * /products/{pid}:
+ *   patch:
+ *     summary: Partially update a product by ID
+ *     tags: [Products]
+ *     parameters:
+ *       - name: pid
+ *         in: path
+ *         description: ID of the product to update
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: The new title of the product.
+ *               description:
+ *                 type: string
+ *                 description: The new description of the product.
+ *               price:
+ *                 type: number
+ *                 description: The new price of the product.
+ *               inStock:
+ *                 type: number
+ *                 description: The new quantity of the product in stock.
+ *               product_images:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: number
+ *                       description: The identifier for the image (UUID).
+ *                     url:
+ *                       type: string
+ *                       description: The URL of the image.
+ *                     pid:
+ *                       type: string
+ *                       description: The unique identifier for the product (UUID).
+ *                       default: [""]
+ *                 description: An array of new product images.
+ *               categories:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       description: The identifier for the category (UUID).
+ *                     title:
+ *                       type: string
+ *                       description: The title of the category.
+ *                 description: An array of new category names the product belongs to.
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: Internal server error
+ */
+
+//?~>|DELETE
+/**
+ * @swagger
  * /products/{pid}:
  *   delete:
  *     summary: Delete a product by ID
@@ -189,11 +313,11 @@
  *     parameters:
  *       - name: pid
  *         in: path
+ *         description: ID of the product to delete
  *         required: true
  *         schema:
  *           type: string
  *           format: uuid
- *         description: ID of the product to delete
  *     responses:
  *       200:
  *         description: Product deleted successfully
