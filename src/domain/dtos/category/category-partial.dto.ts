@@ -1,9 +1,7 @@
-import { CategoryProps, ProductProps } from "../../types";
+import { CategoryProps } from "../../types";
 
 export class CategoryPartialDto implements CategoryProps {
-    public id?: string;
     public title?: string;
-    public product?: ProductProps[];
 
     private constructor(partialData: Partial<CategoryPartialDto>) {
         Object.assign(this, partialData);

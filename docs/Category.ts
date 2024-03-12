@@ -23,7 +23,7 @@
  *   name: Categories
  *   description: Operations related to categories
  */
-//~> |Get
+//?~> |Get
 /**
  * @swagger
  * /categories:
@@ -53,7 +53,7 @@
  *       500:
  *         description: Internal server error
  */
-//~> |Get
+//?~> |Get
 /**
  * @swagger
  * /categories/{ctyid}:
@@ -73,7 +73,7 @@
  *       404:
  *         description: Category not found
  */
-//~> |Post
+//?~> |Post
 /**
  * @swagger
  * /categories:
@@ -92,7 +92,7 @@
  *       400:
  *         description: Bad request
  */
-//~> |Put
+//?~> |Put
 /**
  * @swagger
  * /categories/{ctyid}:
@@ -120,7 +120,7 @@
  *       400:
  *         description: Bad request
  */
-//~> |Patch
+//?~> |Patch
 /**
  * @swagger
  * /categories/{ctyid}:
@@ -148,7 +148,7 @@
  *       400:
  *         description: Bad request
  */
-//~> |Delete
+//?~> |Delete
 /**
  * @swagger
  * /categories/{ctyid}:

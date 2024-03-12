@@ -11,7 +11,7 @@ import {
 } from "../../domain";
 import { PaginationDto, executePagination } from "../../shared";
 import { CategoryMapper } from "../mappers";
-import { ProductProps } from "@/domain/types";
+import { ProductProps } from "../../domain/types";
 
 export interface CategoryProps {
     id: string;
@@ -125,9 +125,11 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
                 where: { id },
                 select: { id: true, products: true, title: true }
             });
+
             if (!deleted) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
             }
+
             return CategoryMapper.CategoryEntityFromObject(deleted);
         } catch (err) {
             if (err instanceof CustomError) {
@@ -143,10 +145,9 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
         try {
             const existsCategory = await prisma.category.update({
                 where: { id },
-                data: categoryDto as any, //Todo fixear luego
+                data: categoryDto,
                 select: { id: true, products: true, title: true }
             });
-            categoryDto;
 
             if (!existsCategory) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
@@ -173,6 +174,7 @@ export class CategoryDatasourceImpl implements CategoryDatasource {
                 data: categoryPartialDto,
                 select: { id: true, products: true, title: true }
             });
+
             if (!existsCategory) {
                 throw CustomError.notFound(`Category with ID: ${id} not found`);
             }
