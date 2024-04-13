@@ -12,16 +12,16 @@ interface ExecutePaginationProps {
 export const executePagination = ({ page, limit, sort, endpointName, docs, products }: ExecutePaginationProps) => {
     const baseUrl: string = `/api/${endpointName}?limit=${limit}&sort=${sort}`;
 
+    const totalPages: number = Math.ceil(docs / limit);
+
     const hasPrevPage: boolean = page > 1;
-    const hasNextPage: boolean = page < docs;
+    const hasNextPage: boolean = page < totalPages;
 
     const prevPage: number | null = hasPrevPage ? page - 1 : null;
     const nextPage: number | null = hasNextPage ? page + 1 : null;
     const status: number | string = products.length === 0 ? "error" : "success";
     const prevLink: string | null = hasPrevPage ? `${baseUrl}&page=${prevPage}` : null;
     const nextLink: string | null = hasNextPage ? `${baseUrl}&page=${nextPage}` : null;
-
-    const totalPages: number = Math.ceil(docs / limit);
 
     const results = {
         status,
@@ -38,7 +38,6 @@ export const executePagination = ({ page, limit, sort, endpointName, docs, produ
     };
 
     if (page >= totalPages) {
-        results.hasNextPage = false;
         results.nextPage = null;
         results.nextLink = null;
     }
